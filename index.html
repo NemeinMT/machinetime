@@ -373,46 +373,57 @@
     }
 
     // Flat index (your chapter-break version can be wired in here later)
-    function buildIndex() {
-      const list = elIndexList();
-      list.innerHTML = "";
-      for (const b of blocks) {
-        const a = document.createElement("a");
-        a.className = "indexItem";
-        a.href = `#${b.n}`;
-        a.innerHTML = `<strong>Block ${b.n}</strong><small>${escapeHtml(b.title || "")}</small>`;
-        a.addEventListener("click", (e) => {
-          e.preventDefault();
-          const idx = blocks.findIndex(x => x.n === b.n);
-          if (idx >= 0) {
-            i = idx;
-            setMode("block");
-            renderBlock();
-          }
-        });
-        list.appendChild(a);
-      }
+   function buildIndex() {
+  const list = elIndexList();
+  list.innerHTML = "";
+
+  // blocks[] expected to contain:
+  // b.n (number), b.title (string), optional b.part (string), optional b.chapter (string)
+  // If part/chapter missing, it will gracefully fall back.
+
+  let lastPart = null;
+  let lastChapter = null;
+
+  for (const b of blocks) {
+    const part = (b.part || "").trim();
+    const chapter = (b.chapter || "").trim();
+
+    if (part && part !== lastPart) {
+      const partEl = document.createElement("div");
+      partEl.className = "indexPart";
+      partEl.textContent = part;
+      list.appendChild(partEl);
+      lastPart = part;
+      lastChapter = null; // reset chapter when part changes
     }
 
-    function applyHash() {
-      const h = location.hash.replace("#", "").trim();
-      if (h === "index" || h === "") {
-        setMode("index");
-        return;
-      }
-      const n = parseInt(h, 10);
-      if (!isNaN(n)) {
-        const idx = blocks.findIndex(x => x.n === n);
-        if (idx >= 0) {
-          i = idx;
-          setMode("block");
-          renderBlock();
-          return;
-        }
-      }
-      setMode("block");
-      renderBlock();
+    if (chapter && chapter !== lastChapter) {
+      const chEl = document.createElement("div");
+      chEl.className = "indexChapterTitle";
+      chEl.textContent = chapter;
+      list.appendChild(chEl);
+      lastChapter = chapter;
     }
+
+    const a = document.createElement("a");
+    a.className = "indexItem";
+    a.href = `#${b.n}`;
+    a.innerHTML = `<strong>Block ${b.n}</strong><small>${escapeHtml(b.title || "")}</small>`;
+
+    a.addEventListener("click", (e) => {
+      e.preventDefault();
+      const idx = blocks.findIndex(x => x.n === b.n);
+      if (idx >= 0) {
+        i = idx;
+        setMode("block");
+        renderBlock();
+      }
+    });
+
+    list.appendChild(a);
+  }
+}
+
 
     // Theme
     function getTheme(){
