@@ -734,12 +734,14 @@ function toggleAbout(){
 function applyHash() {
   const h = location.hash.replace("#", "").trim();
 
-  if (h === "index" || h === "") {
+  // INDEX (default)
+  if (h === "" || h === "index") {
     setMode("index");
     openChapterForBlock(blocks[i]);
     return;
   }
 
+  // ABOUT
   if (h === "about") {
     setMode("index");
     elAboutPanel().hidden = false;
@@ -748,6 +750,7 @@ function applyHash() {
     return;
   }
 
+  // BLOCK NUMBER
   const n = parseInt(h, 10);
   if (!isNaN(n)) {
     const idx = blocks.findIndex(x => x.n === n);
@@ -759,30 +762,12 @@ function applyHash() {
     }
   }
 
+  // FALLBACK
   setMode("block");
   renderBlock();
 }
 
-
-  // Block route: #18 etc
-  const n = parseInt(h, 10);
-  if (!isNaN(n)) {
-    const idx = blocks.findIndex(x => x.n === n);
-    if (idx >= 0) {
-      i = idx;
-      setMode("block");
-      renderBlock();
-      return;
-    }
-  }
-
-  // Fallback
-  setMode("block");
-  renderBlock();
-}
-
-    
-    window.addEventListener("hashchange", () => applyHash());
+window.addEventListener("hashchange", applyHash);
 
     // Init
     (async () => {
