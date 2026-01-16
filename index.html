@@ -631,7 +631,7 @@
 }
 
 function toggleAbout(){
-  // only operate while on index
+  // ensure we are in index mode
   setMode("index");
 
   const panel = elAboutPanel();
@@ -649,22 +649,6 @@ function toggleAbout(){
     history.replaceState(null, "", "#index");
   }
 }
-
-
-  // Update button label
-  const btn = document.getElementById("aboutBtn");
-  btn.textContent = panel.hidden ? "About" : "Close";
-
-  // Optional: scroll into view when opening
-  if (!panel.hidden) {
-    history.replaceState(null, "", "#about");
-    setTimeout(() => panel.scrollIntoView({ block: "start", behavior: "smooth" }), 0);
-  } else {
-    history.replaceState(null, "", "#index");
-  }
-}
-
-
 
     // Theme
     function getTheme(){
