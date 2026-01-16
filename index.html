@@ -533,14 +533,18 @@
     }
 
     function renderBlock() {
-      const b = blocks[i];
-      elMeta().textContent = `Block ${b.n}`;
-      elTitle().textContent = b.title || "";
-      elBody().textContent = b.body || "";
-      elCounter().textContent = `Block ${i + 1} / ${blocks.length}`;
-      elJump().value = String(b.n);
-      location.hash = `#${b.n}`;
-    }
+  const b = blocks[i];
+  elMeta().textContent = `Block ${b.n}`;
+  elTitle().textContent = b.title || "";
+  elBody().textContent = b.body || "";
+  elCounter().textContent = `Block ${i + 1} / ${blocks.length}`;
+  elJump().value = String(b.n);
+  history.replaceState(null, "", `#${b.n}`);
+
+  // always load new block at top of page
+  window.scrollTo({ top: 0, behavior: "instant" });
+}
+
 
     function buildJump() {
       const jump = elJump();
