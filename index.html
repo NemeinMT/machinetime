@@ -1,62 +1,60 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Machine Time</title>
 
   <style>
-    /* =========================
-       AMBER THEME (DARK + LIGHT)
-       ========================= */
-
     :root{
       --bg: #050505;
       --fg: #eaeaea;
       --muted: #9a9a9a;
-      --line: rgba(242,198,109,0.18);
-      --card: rgba(255,255,255,0.02);
-      --shadow: rgba(0,0,0,0.35);
+      --line: rgba(255,255,255,0.12);
 
-      /* amber */
+      /* AMBER (dark) */
       --accent: #f2c66d;
-      --title:  #f2c66d;
+      --title: #f2c66d;
+
+      /* surfaces */
+      --navGlass: rgba(0,0,0,0.40);
+      --navShadow: rgba(0,0,0,0.35);
+      --paperGlow: rgba(242,198,109,0.08);
     }
 
     :root[data-theme="light"]{
-      --bg: #fff7ea;
-      --fg: #2a1a08;
-      --muted: #7a4b16;
-      --line: rgba(122,75,22,0.22);
-      --card: rgba(122,75,22,0.06);
-      --shadow: rgba(0,0,0,0.10);
+      --bg: #f7f5ef;
+      --fg: #14110f;
+      --muted: rgba(20,17,15,0.62);
+      --line: rgba(20,17,15,0.18);
 
-      /* deeper amber so it reads on paper */
+      /* AMBER (light) — deeper so it reads on paper */
       --accent: #9a5b00;
-      --title:  #2a1a08;
+      --title: #14110f;
+
+      --navGlass: rgba(255,255,255,0.72);
+      --navShadow: rgba(0,0,0,0.10);
+      --paperGlow: rgba(154,91,0,0.07);
     }
 
-    html, body{ height: 100%; }
+    html, body { height: 100%; }
 
     body{
-  margin: 0;
-  background: radial-gradient(...), var(--bg);
-  color: var(--fg);
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-}
+      margin: 0;
+      background:
+        radial-gradient(1200px 600px at 50% 0%, var(--paperGlow), transparent 60%),
+        var(--bg);
+      color: var(--fg);
 
-/* Terminal font everywhere (Index + Nav + UI) */
-body, button, select, option,
-.indexPanel, .indexTitle, .indexSectionHeader, .indexItem,
-.counter, .stamp {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-               "Liberation Mono", "Courier New", monospace;
-}
+      /* terminal font everywhere (title + body + nav) */
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+                   "Liberation Mono", "Courier New", monospace;
+    }
 
     .wrap{
       max-width: 920px;
       margin: 0 auto;
-      padding: 48px 20px 140px; /* extra space for sticky nav */
+      padding: 48px 20px 150px; /* space for sticky nav */
     }
 
     .title{
@@ -65,7 +63,7 @@ body, button, select, option,
       font-size: 12px;
       color: var(--muted);
       text-transform: uppercase;
-      margin-bottom: 14px;
+      margin-bottom: 18px;
     }
 
     .rule{
@@ -75,48 +73,42 @@ body, button, select, option,
     }
 
     /* =========================
-       BLOCK
+       BLOCK VIEW
        ========================= */
 
     .block{
       margin-top: 18px;
       padding-top: 18px;
-      border-top: 1px solid var(--line);
+      font-size: 18px;
+      line-height: 1.85;
+      white-space: pre-wrap;
     }
 
     .blockMeta{
       color: var(--accent);
       font-size: 12px;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       margin-bottom: 10px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     }
 
+    /* title slightly reduced */
     .blockTitle{
-  margin-top: 8px;
-  font-size: 20px;
-  line-height: 1.15;
-  font-weight: 750;
-  color: var(--title);
-  margin-bottom: 18px;
+      font-size: 26px;
+      line-height: 1.25;
+      font-weight: 800;
+      color: var(--title);
+      margin: 0 0 18px;
+    }
 
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  letter-spacing: -0.02em;
-}
-
-   .blockBody{
-  font-size: 20px;
-  line-height: 1.75;
-  white-space: pre-wrap;
-
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-}
+    .blockBody{
+      font-size: 18px;
+      line-height: 1.85;
+      white-space: pre-wrap;
+    }
 
     /* =========================
-       INDEX
+       INDEX (ledger cards)
        ========================= */
 
     .indexPanel{
@@ -126,15 +118,11 @@ body, button, select, option,
     }
 
     .indexTitle{
-      color: var(--muted);
+      color: var(--accent);
       font-size: 12px;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       margin-bottom: 14px;
-    }
-
-    .indexSection{
-      margin-top: 18px;
     }
 
     .indexPart{
@@ -142,66 +130,50 @@ body, button, select, option,
       font-size: 12px;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      margin: 22px 0 10px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      margin: 26px 0 10px;
     }
 
     .indexChapterTitle{
       color: var(--fg);
       font-size: 13px;
       font-weight: 800;
-      margin: 10px 0 10px;
+      margin: 10px 0 12px;
       opacity: 0.9;
     }
 
     .indexList{
-  display: grid;
-  gap: 8px;
-}
+      display: grid;
+      gap: 8px;
+    }
 
     .indexItem{
-  display: block;
-  padding: 12px 14px;
-  border: 1px solid var(--line);
-  border-radius: 8px;            /* less rounded */
-  background: transparent;        /* ledger feel */
-  color: var(--fg);
-  text-decoration: none;
-  box-shadow: none;               /* remove card shadow */
-}
+      display: block;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;      /* less rounded */
+      background: transparent;  /* ledger */
+      color: var(--fg);
+      text-decoration: none;
+    }
 
     .indexItem:hover{
-  border-color: var(--accent);
-}
+      border-color: var(--accent);
+    }
 
     .indexItem strong{
-  display: block;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-}
+      display: block;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
 
-.indexItem small{
-  display: block;
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.35;
-  margin-top: 4px;
-}
-/* Make the whole index use terminal font */
-.indexPanel,
-.indexTitle,
-.indexChapterTitle,
-.indexItem,
-.indexItem strong,
-.indexItem small{
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-}
-
-/* Light mode: faint card fill so index items read cleanly */
-:root[data-theme="light"] .indexItem{
-  background: rgba(0,0,0,0.02);
-}
+    .indexItem small{
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+      margin-top: 4px;
+    }
 
     /* =========================
        STICKY NAV
@@ -213,12 +185,12 @@ body, button, select, option,
       right: 0;
       bottom: 0;
       padding: 14px 0 18px;
-      background: linear-gradient(to top, rgba(0,0,0,0.78), rgba(0,0,0,0.0));
       pointer-events: none;
+      background: linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0.0));
     }
 
     :root[data-theme="light"] .navBar{
-      background: linear-gradient(to top, rgba(255,247,234,0.95), rgba(255,247,234,0.0));
+      background: linear-gradient(to top, rgba(247,245,239,0.95), rgba(247,245,239,0.0));
     }
 
     .navInner{
@@ -233,56 +205,36 @@ body, button, select, option,
       flex-wrap: wrap;
       gap: 10px;
       align-items: center;
-      padding: 12px;
+      padding: 12px 14px;
       border: 1px solid var(--line);
-      border-radius: 16px;
-      background: rgba(0,0,0,0.35);
+      border-radius: 12px; /* ledger-ish */
+      background: var(--navGlass);
       backdrop-filter: blur(10px);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+      box-shadow: 0 12px 30px var(--navShadow);
     }
 
-    :root[data-theme="light"] .nav{
-      background: rgba(255,255,255,0.65);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.10);
-    }
-
-    button{
+    button, select{
       background: transparent;
       color: var(--fg);
       border: 1px solid var(--line);
       padding: 10px 14px;
-      border-radius: 12px;
-      cursor: pointer;
+      border-radius: 10px;
       font-size: 14px;
+      font-family: inherit;
+      cursor: pointer;
+      outline: none;
     }
 
-    button:hover{
-      border-color: rgba(242,198,109,0.55);
-      box-shadow: 0 0 0 3px rgba(242,198,109,0.12);
-    }
-
-    :root[data-theme="light"] button:hover{
-      border-color: rgba(154,91,0,0.45);
-      box-shadow: 0 0 0 3px rgba(154,91,0,0.10);
+    button:hover, select:hover{
+      border-color: var(--accent);
     }
 
     button:disabled{
       opacity: 0.45;
       cursor: not-allowed;
-      box-shadow: none;
     }
 
-    select{
-      background: transparent;
-      color: var(--fg);
-      border: 1px solid var(--line);
-      padding: 10px 14px;
-      border-radius: 12px;
-      font-size: 14px;
-      outline: none;
-    }
-
-    /* Fix dropdown background bug (Win/Chrome) */
+    /* Fix dropdown white-on-white bug */
     select option{
       background: var(--bg);
       color: var(--fg);
@@ -294,7 +246,6 @@ body, button, select, option,
       font-size: 13px;
       display: flex;
       align-items: center;
-      gap: 8px;
       white-space: nowrap;
     }
 
@@ -302,11 +253,10 @@ body, button, select, option,
       width: 100%;
       color: var(--muted);
       font-size: 12px;
-      letter-spacing: 0.10em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      opacity: 0.9;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      margin-top: 2px;
+      opacity: 0.95;
+      margin-top: 6px;
     }
 
     @media (min-width: 720px){
@@ -343,14 +293,10 @@ body, button, select, option,
     <div class="navInner">
       <div class="nav">
         <button id="indexBtn">Index</button>
-
         <select id="jump"></select>
-
         <button id="prev">← Prev</button>
         <button id="next">Next →</button>
-
         <button id="themeBtn" title="Toggle light/dark">◐</button>
-
         <div id="counter" class="counter"></div>
         <div id="publicStamp" class="stamp"></div>
       </div>
@@ -375,10 +321,6 @@ body, button, select, option,
       if (!res.ok) throw new Error("Failed to load blocks.json");
       blocks = await res.json();
       if (!Array.isArray(blocks) || blocks.length === 0) throw new Error("blocks.json empty");
-    }
-
-    function escapeHtml(s){
-      return s.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
     }
 
     function setMode(mode) {
@@ -426,53 +368,29 @@ body, button, select, option,
       });
     }
 
+    function escapeHtml(s){
+      return s.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+    }
+
+    // Flat index (your chapter-break version can be wired in here later)
     function buildIndex() {
       const list = elIndexList();
       list.innerHTML = "";
-
-      // Group: part -> chapter -> blocks (requires blocks.json contains part/chapter)
-      const parts = new Map();
-
       for (const b of blocks) {
-        const part = b.part || " ";
-        const chapter = b.chapter || " ";
-
-        if (!parts.has(part)) parts.set(part, new Map());
-        const chapters = parts.get(part);
-
-        if (!chapters.has(chapter)) chapters.set(chapter, []);
-        chapters.get(chapter).push(b);
-      }
-
-      for (const [partName, chapters] of parts.entries()) {
-        const partEl = document.createElement("div");
-        partEl.className = "indexSection";
-        partEl.innerHTML = `<div class="indexPart">${escapeHtml(partName)}</div>`;
-        list.appendChild(partEl);
-
-        for (const [chapterName, bs] of chapters.entries()) {
-          const chapEl = document.createElement("div");
-          chapEl.className = "indexChapter";
-          chapEl.innerHTML = `<div class="indexChapterTitle">${escapeHtml(chapterName)}</div>`;
-          list.appendChild(chapEl);
-
-          for (const b of bs) {
-            const a = document.createElement("a");
-            a.className = "indexItem";
-            a.href = `#${b.n}`;
-            a.innerHTML = `<strong>Block ${b.n}</strong><small>${escapeHtml(b.title || "")}</small>`;
-            a.addEventListener("click", (e) => {
-              e.preventDefault();
-              const idx = blocks.findIndex(x => x.n === b.n);
-              if (idx >= 0) {
-                i = idx;
-                setMode("block");
-                renderBlock();
-              }
-            });
-            list.appendChild(a);
+        const a = document.createElement("a");
+        a.className = "indexItem";
+        a.href = `#${b.n}`;
+        a.innerHTML = `<strong>Block ${b.n}</strong><small>${escapeHtml(b.title || "")}</small>`;
+        a.addEventListener("click", (e) => {
+          e.preventDefault();
+          const idx = blocks.findIndex(x => x.n === b.n);
+          if (idx >= 0) {
+            i = idx;
+            setMode("block");
+            renderBlock();
           }
-        }
+        });
+        list.appendChild(a);
       }
     }
 
@@ -514,7 +432,7 @@ body, button, select, option,
       });
     }
 
-    // Public clock stamp (GENESIS / LAST / RATE / TICKS)
+    // Public clock stamp
     function fmtIso(iso){
       const d = new Date(iso);
       const y = d.getFullYear();
