@@ -56,6 +56,36 @@
       margin: 0 auto;
       padding: 48px 20px 150px; /* space for sticky nav */
     }
+/* =========================
+   TOP BAR (title + about)
+   ========================= */
+
+.topBar{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.aboutBtn{
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: var(--accent);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-family: inherit;
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+.aboutBtn:hover{
+  opacity: 1;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
 
     .title{
   letter-spacing: 0.18em;
