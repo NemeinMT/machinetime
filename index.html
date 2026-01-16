@@ -478,6 +478,7 @@
 
     function setMode(mode) {
       const isIndex = mode === "index";
+      document.getElementById("aboutBtn").style.display = isIndex ? "inline-block" : "none";
       elIndexPanel().hidden = !isIndex;
       elBlockView().style.display = isIndex ? "none" : "block";
       elAboutPanel().hidden = true; // always hide About when switching modes
