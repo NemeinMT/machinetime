@@ -6,58 +6,59 @@
   <title>Machine Time</title>
 
   <style>
-   :root{
-  --bg: #050505;
-  --fg: #eaeaea;
-  --muted: #9a9a9a;
-  --line: #1c1c1c;
-  --card: rgba(255,255,255,0.02);
-  --shadow: rgba(0,0,0,0.35);
+    /* =========================
+       AMBER THEME (DARK + LIGHT)
+       ========================= */
 
-  /* amber terminal */
-  --accent: #f2c66d;  /* amber */
-  --title: #f2c66d;   /* make titles amber too */
-}
+    :root{
+      --bg: #050505;
+      --fg: #eaeaea;
+      --muted: #9a9a9a;
+      --line: rgba(242,198,109,0.18);
+      --card: rgba(255,255,255,0.02);
+      --shadow: rgba(0,0,0,0.35);
 
-
-    /* Light mode overrides */
-  :root[data-theme="light"]{
-  --bg: #f7f5ef;
-  --fg: #101010;
-  --muted: #4b4b4b;
-  --line: rgba(0,0,0,0.15);
-  --card: rgba(0,0,0,0.03);
-  --shadow: rgba(0,0,0,0.10);
-
-  --accent: #1f6f3a;   /* or #2b2b2b for neutral */
-  --title: #101010;
-}
-
-    html, body{
-      height: 100%;
+      /* amber */
+      --accent: #f2c66d;
+      --title:  #f2c66d;
     }
 
-   body{
-  margin: 0;
-  background: var(--bg);
-  color: var(--fg);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-}
+    :root[data-theme="light"]{
+      --bg: #fff7ea;
+      --fg: #2a1a08;
+      --muted: #7a4b16;
+      --line: rgba(122,75,22,0.22);
+      --card: rgba(122,75,22,0.06);
+      --shadow: rgba(0,0,0,0.10);
 
+      /* deeper amber so it reads on paper */
+      --accent: #9a5b00;
+      --title:  #2a1a08;
+    }
+
+    html, body{ height: 100%; }
+
+    body{
+      margin: 0;
+      background: radial-gradient(1200px 600px at 50% 0%, rgba(242,198,109,0.08), transparent 60%),
+                  var(--bg);
+      color: var(--fg);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
 
     .wrap{
       max-width: 920px;
       margin: 0 auto;
-      padding: 48px 20px 140px;
+      padding: 48px 20px 140px; /* extra space for sticky nav */
     }
 
     .title{
-      letter-spacing: 0.12em;
-      font-weight: 700;
-      font-size: 13px;
+      letter-spacing: 0.18em;
+      font-weight: 800;
+      font-size: 12px;
       color: var(--muted);
       text-transform: uppercase;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
     }
 
     .rule{
@@ -66,13 +67,14 @@
       margin: 10px 0 26px;
     }
 
-    /* Block */
+    /* =========================
+       BLOCK
+       ========================= */
+
     .block{
       margin-top: 18px;
       padding-top: 18px;
-      font-size: 20px;
-      line-height: 1.65;
-      white-space: pre-wrap;
+      border-top: 1px solid var(--line);
     }
 
     .blockMeta{
@@ -81,17 +83,16 @@
       letter-spacing: 0.14em;
       text-transform: uppercase;
       margin-bottom: 10px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     }
 
     .blockTitle{
+      margin-top: 8px;
       font-size: 30px;
       line-height: 1.15;
-      font-weight: 700;
+      font-weight: 750;
       color: var(--title);
       margin-bottom: 18px;
-     
-}
-
     }
 
     .blockBody{
@@ -100,10 +101,14 @@
       white-space: pre-wrap;
     }
 
-    /* Index */
+    /* =========================
+       INDEX
+       ========================= */
+
     .indexPanel{
       margin-top: 18px;
       padding-top: 18px;
+      border-top: 1px solid var(--line);
     }
 
     .indexTitle{
@@ -118,12 +123,21 @@
       margin-top: 18px;
     }
 
-    .indexSectionHeader{
+    .indexPart{
       color: var(--accent);
       font-size: 12px;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       margin: 22px 0 10px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    .indexChapterTitle{
+      color: var(--fg);
+      font-size: 13px;
+      font-weight: 800;
+      margin: 10px 0 10px;
+      opacity: 0.9;
     }
 
     .indexList{
@@ -139,21 +153,28 @@
       background: var(--card);
       color: var(--fg);
       text-decoration: none;
-      box-shadow: 0 8px 20px var(--shadow);
+      box-shadow: 0 10px 24px var(--shadow);
     }
 
     .indexItem:hover{
-      border-color: rgba(255,255,255,0.20);
+      border-color: rgba(242,198,109,0.55);
+      box-shadow: 0 0 0 3px rgba(242,198,109,0.12), 0 10px 24px var(--shadow);
     }
 
     :root[data-theme="light"] .indexItem:hover{
-      border-color: rgba(0,0,0,0.25);
+      border-color: rgba(154,91,0,0.45);
+      box-shadow: 0 0 0 3px rgba(154,91,0,0.10), 0 10px 24px var(--shadow);
     }
 
     .indexItem strong{
       display: block;
       font-size: 18px;
       margin-bottom: 4px;
+      color: var(--title);
+    }
+
+    :root[data-theme="light"] .indexItem strong{
+      color: var(--fg);
     }
 
     .indexItem small{
@@ -163,19 +184,22 @@
       line-height: 1.3;
     }
 
-    /* Sticky nav */
+    /* =========================
+       STICKY NAV
+       ========================= */
+
     .navBar{
       position: fixed;
       left: 0;
       right: 0;
       bottom: 0;
       padding: 14px 0 18px;
-      background: linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0.0));
+      background: linear-gradient(to top, rgba(0,0,0,0.78), rgba(0,0,0,0.0));
       pointer-events: none;
     }
 
     :root[data-theme="light"] .navBar{
-      background: linear-gradient(to top, rgba(247,245,239,0.95), rgba(247,245,239,0.0));
+      background: linear-gradient(to top, rgba(255,247,234,0.95), rgba(255,247,234,0.0));
     }
 
     .navInner{
@@ -214,16 +238,19 @@
     }
 
     button:hover{
-      border-color: rgba(255,255,255,0.25);
+      border-color: rgba(242,198,109,0.55);
+      box-shadow: 0 0 0 3px rgba(242,198,109,0.12);
     }
 
     :root[data-theme="light"] button:hover{
-      border-color: rgba(0,0,0,0.25);
+      border-color: rgba(154,91,0,0.45);
+      box-shadow: 0 0 0 3px rgba(154,91,0,0.10);
     }
 
     button:disabled{
       opacity: 0.45;
       cursor: not-allowed;
+      box-shadow: none;
     }
 
     select{
@@ -236,7 +263,7 @@
       outline: none;
     }
 
-    /* Fix dropdown background bug */
+    /* Fix dropdown background bug (Win/Chrome) */
     select option{
       background: var(--bg);
       color: var(--fg);
@@ -259,6 +286,7 @@
       letter-spacing: 0.10em;
       text-transform: uppercase;
       opacity: 0.9;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       margin-top: 2px;
     }
 
@@ -330,6 +358,10 @@
       if (!Array.isArray(blocks) || blocks.length === 0) throw new Error("blocks.json empty");
     }
 
+    function escapeHtml(s){
+      return s.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+    }
+
     function setMode(mode) {
       const isIndex = mode === "index";
       elIndexPanel().hidden = !isIndex;
@@ -375,33 +407,54 @@
       });
     }
 
-    // Simple chapter grouping (you can refine later)
-    // If you add chapter metadata to blocks.json later, we can auto-group.
     function buildIndex() {
       const list = elIndexList();
       list.innerHTML = "";
 
-      // For now: flat list (works even without chapter metadata)
-      for (const b of blocks) {
-        const a = document.createElement("a");
-        a.className = "indexItem";
-        a.href = `#${b.n}`;
-        a.innerHTML = `<strong>Block ${b.n}</strong><small>${escapeHtml(b.title || "")}</small>`;
-        a.addEventListener("click", (e) => {
-          e.preventDefault();
-          const idx = blocks.findIndex(x => x.n === b.n);
-          if (idx >= 0) {
-            i = idx;
-            setMode("block");
-            renderBlock();
-          }
-        });
-        list.appendChild(a);
-      }
-    }
+      // Group: part -> chapter -> blocks (requires blocks.json contains part/chapter)
+      const parts = new Map();
 
-    function escapeHtml(s){
-      return s.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+      for (const b of blocks) {
+        const part = b.part || " ";
+        const chapter = b.chapter || " ";
+
+        if (!parts.has(part)) parts.set(part, new Map());
+        const chapters = parts.get(part);
+
+        if (!chapters.has(chapter)) chapters.set(chapter, []);
+        chapters.get(chapter).push(b);
+      }
+
+      for (const [partName, chapters] of parts.entries()) {
+        const partEl = document.createElement("div");
+        partEl.className = "indexSection";
+        partEl.innerHTML = `<div class="indexPart">${escapeHtml(partName)}</div>`;
+        list.appendChild(partEl);
+
+        for (const [chapterName, bs] of chapters.entries()) {
+          const chapEl = document.createElement("div");
+          chapEl.className = "indexChapter";
+          chapEl.innerHTML = `<div class="indexChapterTitle">${escapeHtml(chapterName)}</div>`;
+          list.appendChild(chapEl);
+
+          for (const b of bs) {
+            const a = document.createElement("a");
+            a.className = "indexItem";
+            a.href = `#${b.n}`;
+            a.innerHTML = `<strong>Block ${b.n}</strong><small>${escapeHtml(b.title || "")}</small>`;
+            a.addEventListener("click", (e) => {
+              e.preventDefault();
+              const idx = blocks.findIndex(x => x.n === b.n);
+              if (idx >= 0) {
+                i = idx;
+                setMode("block");
+                renderBlock();
+              }
+            });
+            list.appendChild(a);
+          }
+        }
+      }
     }
 
     function applyHash() {
@@ -442,7 +495,7 @@
       });
     }
 
-    // Public clock stamp
+    // Public clock stamp (GENESIS / LAST / RATE / TICKS)
     function fmtIso(iso){
       const d = new Date(iso);
       const y = d.getFullYear();
