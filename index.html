@@ -360,11 +360,31 @@
 
 <body>
   <div class="wrap">
-   <div class="topBar">
-  <div class="title">MACHINE TIME</div>
-  <button id="aboutBtn" class="aboutBtn">About</button>
-</div>
-<div class="rule"></div>
+  <div class="topBar">
+    <div class="title">MACHINE TIME</div>
+    <button id="aboutBtn" class="aboutBtn" type="button">About</button>
+  </div>
+  <div class="rule"></div>
+
+  <!-- About panel -->
+  <div id="aboutPanel" class="aboutPanel" hidden>
+    <div class="aboutKicker">About</div>
+    <div class="aboutBody">
+      <p><strong>Machine Time</strong> is a book presented as 119 blocks.</p>
+      <p>
+        It describes a civilizational shift: from human-tempo systems (institutions, intervals, interpretation)
+        toward machine-tempo systems (continuous computation, selection pressure, irreversible substrates).
+      </p>
+      <p>
+        Two substrates anchor the argument: <strong>Bitcoin</strong> as an energy/time substrate, and
+        <strong>Bittensor</strong> as an intelligence/inference substrate.
+      </p>
+      <p class="aboutMeta">
+        This site is intentionally simple: one block per page, with an index that groups by parts/chapters.
+      </p>
+    </div>
+  </div>
+
 
     <!-- Block view -->
     <div class="block" id="blockView">
