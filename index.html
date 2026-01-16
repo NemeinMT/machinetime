@@ -11,17 +11,20 @@
       --muted: #9a9a9a;
       --line: #1c1c1c;
     }
+
     body {
       margin: 0;
       background: var(--bg);
       color: var(--fg);
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
     }
+
     .wrap {
       max-width: 780px;
       margin: 0 auto;
       padding: 48px 20px 80px;
     }
+
     .title {
       letter-spacing: 0.08em;
       font-weight: 600;
@@ -29,19 +32,43 @@
       color: var(--muted);
       text-transform: uppercase;
     }
+
     .block {
       margin-top: 18px;
       padding-top: 22px;
       border-top: 1px solid var(--line);
+    }
+
+    .blockMeta{
+      margin-top: 0px;
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .blockTitle{
+      margin-top: 10px;
+      font-size: 28px;
+      line-height: 1.2;
+      font-weight: 600;
+    }
+
+    .blockBody{
+      margin-top: 18px;
       font-size: 20px;
-      line-height: 1.6;
+      line-height: 1.65;
       white-space: pre-wrap;
     }
+
     .nav {
       display: flex;
       gap: 10px;
       margin-top: 22px;
+      flex-wrap: wrap;
+      align-items: center;
     }
+
     button {
       background: transparent;
       color: var(--fg);
@@ -51,7 +78,23 @@
       cursor: pointer;
       font-size: 14px;
     }
+
     button:hover { border-color: #333; }
+
+    button:disabled{
+      opacity: 0.4;
+      cursor: default;
+    }
+
+    select{
+      background: transparent;
+      color: var(--fg);
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 14px;
+    }
+
     .counter {
       margin-left: auto;
       color: var(--muted);
@@ -59,15 +102,64 @@
       display: flex;
       align-items: center;
     }
+
+    .indexPanel{
+      margin-top: 26px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .indexTitle{
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .indexList{
+      margin-top: 14px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .indexItem{
+      display: block;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      color: var(--fg);
+      text-decoration: none;
+    }
+
+    .indexItem:hover{ border-color: #333; }
+
+    .indexItem small{
+      display: block;
+      color: var(--muted);
+      margin-top: 4px;
+      font-size: 12px;
+    }
   </style>
 </head>
+
 <body>
   <div class="wrap">
     <div class="title">MACHINE TIME</div>
 
-    <div id="block" class="block"></div>
+    <div class="block">
+      <div id="blockMeta" class="blockMeta"></div>
+      <div id="blockTitle" class="blockTitle"></div>
+      <div id="blockBody" class="blockBody"></div>
+    </div>
+
+    <div id="indexPanel" class="indexPanel" hidden>
+      <div class="indexTitle">Index</div>
+      <div id="indexList" class="indexList"></div>
+    </div>
 
     <div class="nav">
+      <button id="indexBtn">Index</button>
+      <select id="jump"></select>
       <button id="prev">← Prev</button>
       <button id="next">Next →</button>
       <div id="counter" class="counter"></div>
@@ -75,62 +167,159 @@
   </div>
 
   <script>
-  let blocks = [];
-  let i = 0;
+    let blocks = [];
+    let i = 0;
 
-  async function loadBlocks() {
-    const res = await fetch("./blocks.json", { cache: "no-store" });
-    if (!res.ok) throw new Error("Failed to load blocks.json");
-    blocks = await res.json();
-    if (!Array.isArray(blocks) || blocks.length === 0) {
-      throw new Error("blocks.json is empty or not an array");
+    const elMeta = () => document.getElementById("blockMeta");
+    const elTitle = () => document.getElementById("blockTitle");
+    const elBody = () => document.getElementById("blockBody");
+    const elCounter = () => document.getElementById("counter");
+    const elIndexPanel = () => document.getElementById("indexPanel");
+    const elIndexList = () => document.getElementById("indexList");
+    const elJump = () => document.getElementById("jump");
+
+    async function loadBlocks() {
+      const res = await fetch("./blocks.json", { cache: "no-store" });
+      if (!res.ok) throw new Error("Failed to load blocks.json");
+      blocks = await res.json();
+      if (!Array.isArray(blocks) || blocks.length === 0) throw new Error("blocks.json empty");
     }
-  }
 
-  function render() {
-    const b = blocks[i];
-    // Display format: Block N, then title line, then body
-    document.getElementById("block").textContent =
-      `Block ${b.n}\n\n${b.title}\n\n${b.body}`;
-
-    document.getElementById("counter").textContent =
-      `Block ${i + 1} / ${blocks.length}`;
-
-    history.replaceState(null, "", `#${b.n}`);
-  }
-
-  function jumpFromHash() {
-    const h = parseInt(location.hash.replace("#", ""), 10);
-    if (!isNaN(h)) {
-      const idx = blocks.findIndex(x => x.n === h);
-      if (idx >= 0) i = idx;
+    function escapeHtml(s){
+      return s.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
     }
-  }
 
-  document.getElementById("prev").onclick = () => {
-    i = (i - 1 + blocks.length) % blocks.length;
-    render();
-  };
+    function setMode(mode) {
+      const isIndex = mode === "index";
+      elIndexPanel().hidden = !isIndex;
 
-  document.getElementById("next").onclick = () => {
-    i = (i + 1) % blocks.length;
-    render();
-  };
+      document.querySelector(".block").style.display = isIndex ? "none" : "block";
+      document.getElementById("prev").disabled = isIndex;
+      document.getElementById("next").disabled = isIndex;
+      elJump().disabled = isIndex;
 
-  window.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowLeft") document.getElementById("prev").click();
-    if (e.key === "ArrowRight") document.getElementById("next").click();
-  });
+      if (isIndex) {
+        elCounter().textContent = `${blocks.length} blocks`;
+        history.replaceState(null, "", "#index");
+      }
+    }
 
-  (async () => {
-    await loadBlocks();
-    jumpFromHash();
-    render();
-  })().catch(err => {
-    document.getElementById("block").textContent =
-      "Error loading blocks.\n\n" + err.message;
-    document.getElementById("counter").textContent = "";
-  });
-</script>
+    function renderBlock() {
+      const b = blocks[i];
+      elMeta().textContent = `Block ${b.n}`;
+      elTitle().textContent = b.title || "";
+      elBody().textContent = b.body || "";
+      elCounter().textContent = `Block ${i + 1} / ${blocks.length}`;
+      elJump().value = String(b.n);
+      history.replaceState(null, "", `#${b.n}`);
+    }
+
+    function buildJump() {
+      const jump = elJump();
+      jump.innerHTML = "";
+      for (const b of blocks) {
+        const opt = document.createElement("option");
+        opt.value = String(b.n);
+        opt.textContent = `Block ${b.n}`;
+        jump.appendChild(opt);
+      }
+      jump.addEventListener("change", () => {
+        const n = parseInt(jump.value, 10);
+        const idx = blocks.findIndex(x => x.n === n);
+        if (idx >= 0) {
+          i = idx;
+          setMode("block");
+          renderBlock();
+        }
+      });
+    }
+
+    function buildIndex() {
+      const list = elIndexList();
+      list.innerHTML = "";
+      for (const b of blocks) {
+        const a = document.createElement("a");
+        a.className = "indexItem";
+        a.href = `#${b.n}`;
+        a.innerHTML = `<strong>Block ${b.n}</strong><small>${escapeHtml(b.title || "")}</small>`;
+        a.addEventListener("click", (e) => {
+          e.preventDefault();
+          const idx = blocks.findIndex(x => x.n === b.n);
+          if (idx >= 0) {
+            i = idx;
+            setMode("block");
+            renderBlock();
+          }
+        });
+        list.appendChild(a);
+      }
+    }
+
+    function applyHash() {
+      const h = location.hash.replace("#", "").trim();
+
+      if (h === "index" || h === "") {
+        setMode("index");
+        return;
+      }
+
+      const n = parseInt(h, 10);
+      if (!isNaN(n)) {
+        const idx = blocks.findIndex(x => x.n === n);
+        if (idx >= 0) {
+          i = idx;
+          setMode("block");
+          renderBlock();
+          return;
+        }
+      }
+
+      setMode("block");
+      renderBlock();
+    }
+
+    document.getElementById("prev").onclick = () => {
+      i = (i - 1 + blocks.length) % blocks.length;
+      setMode("block");
+      renderBlock();
+    };
+
+    document.getElementById("next").onclick = () => {
+      i = (i + 1) % blocks.length;
+      setMode("block");
+      renderBlock();
+    };
+
+    document.getElementById("indexBtn").onclick = () => {
+      const isIndex = !elIndexPanel().hidden;
+      if (isIndex) {
+        setMode("block");
+        renderBlock();
+      } else {
+        setMode("index");
+      }
+    };
+
+    window.addEventListener("keydown", (e) => {
+      if (!elIndexPanel().hidden) return;
+      if (e.key === "ArrowLeft") document.getElementById("prev").click();
+      if (e.key === "ArrowRight") document.getElementById("next").click();
+    });
+
+    window.addEventListener("hashchange", () => applyHash());
+
+    (async () => {
+      await loadBlocks();
+      buildJump();
+      buildIndex();
+      applyHash();
+    })().catch(err => {
+      document.querySelector(".block").style.display = "block";
+      elMeta().textContent = "Error";
+      elTitle().textContent = "Could not load blocks";
+      elBody().textContent = err.message;
+      elCounter().textContent = "";
+    });
+  </script>
 </body>
 </html>
