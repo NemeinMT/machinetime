@@ -372,57 +372,99 @@
       return s.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
     }
 
+    function openChapterForBlock(block){
+  const chap = (block && block.chapter) ? String(block.chapter).trim() : "";
+  if (!chap) return;
+
+  const cards = document.querySelectorAll('details.chapterCard');
+  for (const d of cards) {
+    if ((d.dataset.chapter || "").trim() === chap) {
+      d.open = true;
+      setTimeout(() => d.scrollIntoView({ block: "start", behavior: "smooth" }), 0);
+      break;
+    }
+  }
+}
     // Flat index (your chapter-break version can be wired in here later)
-   function buildIndex() {
+ function buildIndex() {
   const list = elIndexList();
   list.innerHTML = "";
 
-  // blocks[] expected to contain:
-  // b.n (number), b.title (string), optional b.part (string), optional b.chapter (string)
-  // If part/chapter missing, it will gracefully fall back.
-
-  let lastPart = null;
-  let lastChapter = null;
+  // Group blocks by part -> chapter
+  const parts = new Map();
 
   for (const b of blocks) {
-    const part = (b.part || "").trim();
-    const chapter = (b.chapter || "").trim();
+    const part = (b.part || " ").trim() || " ";
+    const chapter = (b.chapter || " ").trim() || " ";
 
-    if (part && part !== lastPart) {
+    if (!parts.has(part)) parts.set(part, new Map());
+    const chapters = parts.get(part);
+
+    if (!chapters.has(chapter)) chapters.set(chapter, []);
+    chapters.get(chapter).push(b);
+  }
+
+  // Render
+  for (const [partName, chapters] of parts.entries()) {
+    if (partName && partName !== " ") {
       const partEl = document.createElement("div");
       partEl.className = "indexPart";
-      partEl.textContent = part;
+      partEl.textContent = partName;
       list.appendChild(partEl);
-      lastPart = part;
-      lastChapter = null; // reset chapter when part changes
     }
 
-    if (chapter && chapter !== lastChapter) {
-      const chEl = document.createElement("div");
-      chEl.className = "indexChapterTitle";
-      chEl.textContent = chapter;
-      list.appendChild(chEl);
-      lastChapter = chapter;
-    }
+    for (const [chapterName, bs] of chapters.entries()) {
+      const details = document.createElement("details");
+      details.className = "chapterCard";
+      details.dataset.chapter = chapterName;
 
-    const a = document.createElement("a");
-    a.className = "indexItem";
-    a.href = `#${b.n}`;
-    a.innerHTML = `<strong>Block ${b.n}</strong><small>${escapeHtml(b.title || "")}</small>`;
+      const summary = document.createElement("summary");
+      summary.className = "chapterSummary";
 
-    a.addEventListener("click", (e) => {
-      e.preventDefault();
-      const idx = blocks.findIndex(x => x.n === b.n);
-      if (idx >= 0) {
-        i = idx;
-        setMode("block");
-        renderBlock();
+      const left = document.createElement("div");
+      left.className = "chapterSummaryTitle";
+      left.textContent = chapterName === " " ? "Untitled chapter" : chapterName;
+
+      const right = document.createElement("div");
+      right.className = "chapterSummaryMeta";
+      right.textContent = `${bs.length} blocks`;
+
+      summary.appendChild(left);
+      summary.appendChild(right);
+      details.appendChild(summary);
+
+      const divider = document.createElement("div");
+      divider.className = "chapterDivider";
+      details.appendChild(divider);
+
+      const body = document.createElement("div");
+      body.className = "chapterBody";
+
+      for (const b of bs) {
+        const a = document.createElement("a");
+        a.className = "indexItem";
+        a.href = `#${b.n}`;
+        a.innerHTML = `<strong>Block ${b.n}</strong><small>${escapeHtml(b.title || "")}</small>`;
+
+        a.addEventListener("click", (e) => {
+          e.preventDefault();
+          const idx = blocks.findIndex(x => x.n === b.n);
+          if (idx >= 0) {
+            i = idx;
+            setMode("block");
+            renderBlock();
+          }
+        });
+
+        body.appendChild(a);
       }
-    });
 
-    list.appendChild(a);
+      details.appendChild(body);
+      list.appendChild(details);
+    }
   }
 }
+
 
 
     // Theme
@@ -490,14 +532,15 @@
     };
 
     document.getElementById("indexBtn").onclick = () => {
-      const isIndex = !elIndexPanel().hidden;
-      if (isIndex) {
-        setMode("block");
-        renderBlock();
-      } else {
-        setMode("index");
-      }
-    };
+  const isIndex = !elIndexPanel().hidden;
+  if (isIndex) {
+    setMode("block");
+    renderBlock();
+  } else {
+    setMode("index");
+    openChapterForBlock(blocks[i]);
+  }
+};
 
     window.addEventListener("keydown", (e) => {
       if (!elIndexPanel().hidden) return;
