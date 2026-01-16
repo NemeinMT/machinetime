@@ -188,6 +188,20 @@ body, button, select, option,
   line-height: 1.35;
   margin-top: 4px;
 }
+/* Make the whole index use terminal font */
+.indexPanel,
+.indexTitle,
+.indexChapterTitle,
+.indexItem,
+.indexItem strong,
+.indexItem small{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+/* Light mode: faint card fill so index items read cleanly */
+:root[data-theme="light"] .indexItem{
+  background: rgba(0,0,0,0.02);
+}
 
     /* =========================
        STICKY NAV
