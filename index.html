@@ -752,8 +752,12 @@ function applyHash() {
       await loadBlocks();
       buildJump();
       buildIndex();
-      touchPublicClock();
-      applyHash();
+
+elAboutBtn().addEventListener("click", toggleAbout);
+
+touchPublicClock();
+applyHash();
+
     })().catch(err => {
       elBlockView().style.display = "block";
       elMeta().textContent = "Error";
