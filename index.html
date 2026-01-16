@@ -834,6 +834,8 @@ function shareCurrent(){
       buildIndex();
 
       document.getElementById("aboutBtn").addEventListener("click", toggleAbout);
+      document.getElementById("shareBtn").addEventListener("click", shareCurrent);
+
       window.addEventListener("hashchange", applyHash);
 
       touchPublicClock();
