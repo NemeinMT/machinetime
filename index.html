@@ -489,10 +489,15 @@
       elJump().disabled = isIndex;
 
       if (isIndex) {
-        elCounter().textContent = `${blocks.length} blocks`;
-        history.replaceState(null, "", "#index");
-      }
-    }
+  elCounter().textContent = `${blocks.length} blocks`;
+  history.replaceState(null, "", "#index");
+
+  document.getElementById("aboutBtn").style.display = "inline-block";
+  document.getElementById("aboutBtn").textContent = "About";
+} else {
+  document.getElementById("aboutBtn").style.display = "none";
+}
+
 
     function renderBlock() {
       const b = blocks[i];
