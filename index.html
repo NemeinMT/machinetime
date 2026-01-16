@@ -168,6 +168,27 @@ option{
   font-size: 12px;
 }
 
+.indexSection{
+  margin-top: 18px;
+}
+
+.indexPart{
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin: 12px 0 8px;
+}
+
+.indexChapterTitle{
+  color: var(--fg);
+  font-size: 13px;
+  font-weight: 700;
+  margin: 10px 0 8px;
+  opacity: 0.9;
+}
+
+    
   </style>
 </head>
 
@@ -281,10 +302,37 @@ option{
       });
     }
 
-    function buildIndex() {
-      const list = elIndexList();
-      list.innerHTML = "";
-      for (const b of blocks) {
+   function buildIndex() {
+  const list = elIndexList();
+  list.innerHTML = "";
+
+  // Group: part -> chapter -> blocks
+  const parts = new Map();
+
+  for (const b of blocks) {
+    const part = b.part || " ";
+    const chapter = b.chapter || " ";
+
+    if (!parts.has(part)) parts.set(part, new Map());
+    const chapters = parts.get(part);
+
+    if (!chapters.has(chapter)) chapters.set(chapter, []);
+    chapters.get(chapter).push(b);
+  }
+
+  for (const [partName, chapters] of parts.entries()) {
+    const partEl = document.createElement("div");
+    partEl.className = "indexSection";
+    partEl.innerHTML = `<div class="indexPart">${escapeHtml(partName)}</div>`;
+    list.appendChild(partEl);
+
+    for (const [chapterName, bs] of chapters.entries()) {
+      const chapEl = document.createElement("div");
+      chapEl.className = "indexChapter";
+      chapEl.innerHTML = `<div class="indexChapterTitle">${escapeHtml(chapterName)}</div>`;
+      list.appendChild(chapEl);
+
+      for (const b of bs) {
         const a = document.createElement("a");
         a.className = "indexItem";
         a.href = `#${b.n}`;
@@ -301,6 +349,8 @@ option{
         list.appendChild(a);
       }
     }
+  }
+}0
 
     function applyHash() {
       const h = location.hash.replace("#", "").trim();
