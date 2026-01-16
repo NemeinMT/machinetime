@@ -464,6 +464,9 @@
     const elIndexList = () => document.getElementById("indexList");
     const elJump = () => document.getElementById("jump");
     const elBlockView = () => document.getElementById("blockView");
+    const elAboutPanel = () => document.getElementById("aboutPanel");
+    const elAboutBtn = () => document.getElementById("aboutBtn");
+
 
     async function loadBlocks() {
       const res = await fetch("./blocks.json", { cache: "no-store" });
