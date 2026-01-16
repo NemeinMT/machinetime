@@ -733,6 +733,30 @@
         // silent fail
       }
     }
+function shareCurrent(){
+  const b = blocks[i];
+  const url = `${location.origin}${location.pathname}#${b.n}`;
+
+  const title = `Machine Time — Block ${b.n}`;
+  const text = b.title ? `Block ${b.n}: ${b.title}` : `Block ${b.n}`;
+
+  // Mobile / modern browsers
+  if (navigator.share) {
+    navigator.share({ title, text, url }).catch(() => {});
+    return;
+  }
+
+  // Fallback: copy link
+  navigator.clipboard.writeText(url).then(() => {
+    const btn = document.getElementById("shareBtn");
+    const prev = btn.textContent;
+    btn.textContent = "Copied";
+    setTimeout(() => (btn.textContent = prev), 900);
+  }).catch(() => {
+    // last fallback
+    prompt("Copy link:", url);
+  });
+}
 
     // Controls
     document.getElementById("prev").onclick = () => {
