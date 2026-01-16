@@ -477,26 +477,30 @@
     }
 
     function setMode(mode) {
-      const isIndex = mode === "index";
-      document.getElementById("aboutBtn").style.display = isIndex ? "inline-block" : "none";
-      elIndexPanel().hidden = !isIndex;
-      elBlockView().style.display = isIndex ? "none" : "block";
-      elAboutPanel().hidden = true; // always hide About when switching modes
+  const isIndex = mode === "index";
 
+  // show/hide panels
+  elIndexPanel().hidden = !isIndex;
+  elBlockView().style.display = isIndex ? "none" : "block";
 
-      document.getElementById("prev").disabled = isIndex;
-      document.getElementById("next").disabled = isIndex;
-      elJump().disabled = isIndex;
+  // About: only exists on index
+  const aboutBtn = document.getElementById("aboutBtn");
+  aboutBtn.style.display = isIndex ? "inline-block" : "none";
+  aboutBtn.textContent = "About";
+  elAboutPanel().hidden = true;
 
-      if (isIndex) {
-  elCounter().textContent = `${blocks.length} blocks`;
-  history.replaceState(null, "", "#index");
+  // nav controls
+  document.getElementById("prev").disabled = isIndex;
+  document.getElementById("next").disabled = isIndex;
+  elJump().disabled = isIndex;
 
-  document.getElementById("aboutBtn").style.display = "inline-block";
-  document.getElementById("aboutBtn").textContent = "About";
-} else {
-  document.getElementById("aboutBtn").style.display = "none";
+  // counter + hash
+  if (isIndex) {
+    elCounter().textContent = `${blocks.length} blocks`;
+    history.replaceState(null, "", "#index");
+  }
 }
+
 
 
     function renderBlock() {
