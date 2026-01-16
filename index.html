@@ -56,52 +56,52 @@
       margin: 0 auto;
       padding: 48px 20px 150px; /* space for sticky nav */
     }
-/* =========================
-   TOP BAR (title + about)
-   ========================= */
+    /* =========================
+       TOP BAR (title + about)
+       ========================= */
 
-.topBar{
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 16px;
-}
+    .topBar{
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+    }
 
-.aboutBtn{
-  display: none;
-  background: transparent;
-  border: 0;
-  padding: 0;
-  color: var(--accent);
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  font-family: inherit;
-  cursor: pointer;
-  opacity: 0.9;
-}
+    .aboutBtn{
+      display: none;
+      background: transparent;
+      border: 0;
+      padding: 0;
+      color: var(--accent);
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-family: inherit;
+      cursor: pointer;
+      opacity: 0.9;
+    }
 
-.aboutBtn:hover{
-  opacity: 1;
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 4px;
-}
+    .aboutBtn:hover{
+      opacity: 1;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+    }
 
     .title{
-  letter-spacing: 0.18em;
-  font-weight: 800;
+      letter-spacing: 0.18em;
+      font-weight: 800;
 
-  /* was 12px */
-  font-size: 16px;
+      /* was 12px */
+      font-size: 16px;
 
-  /* was var(--muted) */
-  color: var(--fg);
+      /* was var(--muted) */
+      color: var(--fg);
 
-  text-transform: uppercase;
-  margin-bottom: 18px;
-  opacity: 0.92;
-}
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      opacity: 0.92;
+    }
 
     .rule{
       height: 1px;
@@ -203,104 +203,104 @@
       line-height: 1.35;
       margin-top: 4px;
     }
-/* =========================
-   INDEX: chapter dropdown cards
-   ========================= */
+    /* =========================
+       INDEX: chapter dropdown cards
+       ========================= */
 
-.chapterCard{
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: transparent;
-  margin: 8px 0;
-  overflow: hidden;
-}
+    .chapterCard{
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: transparent;
+      margin: 8px 0;
+      overflow: hidden;
+    }
 
-.chapterSummary{
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 12px 14px;
-  cursor: pointer;
-  list-style: none;
-  color: var(--accent); /* ensures marker inherits amber in many browsers */
-}
+    .chapterSummary{
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      cursor: pointer;
+      list-style: none;
+      color: var(--accent); /* ensures marker inherits amber in many browsers */
+    }
 
-.chapterSummaryTitle{
-  font-size: 16px;
-  font-weight: 800;
-  color: var(--fg);     /* keep the chapter title normal */
-}
+    .chapterSummaryTitle{
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--fg);     /* keep the chapter title normal */
+    }
 
-.chapterSummaryMeta{
-  font-size: 12px;
-  color: var(--accent); /* “12 blocks” always amber */
-  opacity: 0.9;
-  white-space: nowrap;
-}
+    .chapterSummaryMeta{
+      font-size: 12px;
+      color: var(--accent); /* “12 blocks” always amber */
+      opacity: 0.9;
+      white-space: nowrap;
+    }
 
-.chapterDivider{
-  height: 1px;
-  background: var(--line);
-  opacity: 0.8;
-}
+    .chapterDivider{
+      height: 1px;
+      background: var(--line);
+      opacity: 0.8;
+    }
 
-.chapterBody{
-  padding: 10px 10px 12px;
-  display: grid;
-  gap: 8px;
-}
+    .chapterBody{
+      padding: 10px 10px 12px;
+      display: grid;
+      gap: 8px;
+    }
 
-/* =========================
-   INDEX: disclosure arrows always amber
-   ========================= */
+    /* =========================
+       INDEX: disclosure arrows always amber
+       ========================= */
 
-/* Chrome / Edge / Safari */
-#indexList summary::-webkit-details-marker{
-  color: var(--accent);
-}
+    /* Chrome / Edge / Safari */
+    #indexList summary::-webkit-details-marker{
+      color: var(--accent);
+    }
 
-/* Firefox + modern browsers */
-#indexList summary::marker{
-  color: var(--accent);
-}
-/* =========================
-   ABOUT PANEL
-   ========================= */
+    /* Firefox + modern browsers */
+    #indexList summary::marker{
+      color: var(--accent);
+    }
+    /* =========================
+       ABOUT PANEL
+       ========================= */
 
-.aboutPanel{
-  margin-top: 18px;
-  padding-top: 18px;
-  border-top: 1px solid var(--line);
-}
+    .aboutPanel{
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
 
-.aboutKicker{
-  color: var(--accent);
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-}
+    .aboutKicker{
+      color: var(--accent);
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
 
-.aboutBody{
-  font-size: 14px;
-  line-height: 1.75;
-  color: var(--fg);
-  max-width: 82ch;
-}
+    .aboutBody{
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--fg);
+      max-width: 82ch;
+    }
 
-.aboutBody p{
-  margin: 0 0 14px;
-}
+    .aboutBody p{
+      margin: 0 0 14px;
+    }
 
-.aboutBody strong{
-  font-weight: 800;
-}
+    .aboutBody strong{
+      font-weight: 800;
+    }
 
-.aboutMeta{
-  color: var(--muted);
-  opacity: 0.9;
-}
+    .aboutMeta{
+      color: var(--muted);
+      opacity: 0.9;
+    }
 
     /* =========================
        STICKY NAV
@@ -398,31 +398,30 @@
 
 <body>
   <div class="wrap">
-  <div class="topBar">
-    <div class="title">MACHINE TIME</div>
-    <button id="aboutBtn" class="aboutBtn" type="button">About</button>
-  </div>
-  <div class="rule"></div>
-
-  <!-- About panel -->
-  <div id="aboutPanel" class="aboutPanel" hidden>
-    <div class="aboutKicker">About</div>
-    <div class="aboutBody">
-      <p><strong>Machine Time</strong> is a book presented as 119 blocks.</p>
-      <p>
-        It describes a civilizational shift: from human-tempo systems (institutions, intervals, interpretation)
-        toward machine-tempo systems (continuous computation, selection pressure, irreversible substrates).
-      </p>
-      <p>
-        Two substrates anchor the argument: <strong>Bitcoin</strong> as an energy/time substrate, and
-        <strong>Bittensor</strong> as an intelligence/inference substrate.
-      </p>
-      <p class="aboutMeta">
-        This site is intentionally simple: one block per page, with an index that groups by parts/chapters.
-      </p>
+    <div class="topBar">
+      <div class="title">MACHINE TIME</div>
+      <button id="aboutBtn" class="aboutBtn" type="button">About</button>
     </div>
-  </div>
+    <div class="rule"></div>
 
+    <!-- About panel -->
+    <div id="aboutPanel" class="aboutPanel" hidden>
+      <div class="aboutKicker">About</div>
+      <div class="aboutBody">
+        <p><strong>Machine Time</strong> is a book presented as 119 blocks.</p>
+        <p>
+          It describes a civilizational shift: from human-tempo systems (institutions, intervals, interpretation)
+          toward machine-tempo systems (continuous computation, selection pressure, irreversible substrates).
+        </p>
+        <p>
+          Two substrates anchor the argument: <strong>Bitcoin</strong> as an energy/time substrate, and
+          <strong>Bittensor</strong> as an intelligence/inference substrate.
+        </p>
+        <p class="aboutMeta">
+          This site is intentionally simple: one block per page, with an index that groups by parts/chapters.
+        </p>
+      </div>
+    </div>
 
     <!-- Block view -->
     <div class="block" id="blockView">
@@ -468,7 +467,6 @@
     const elAboutPanel = () => document.getElementById("aboutPanel");
     const elAboutBtn = () => document.getElementById("aboutBtn");
 
-
     async function loadBlocks() {
       const res = await fetch("./blocks.json", { cache: "no-store" });
       if (!res.ok) throw new Error("Failed to load blocks.json");
@@ -476,32 +474,35 @@
       if (!Array.isArray(blocks) || blocks.length === 0) throw new Error("blocks.json empty");
     }
 
+    // FIXED: About only on index, About toggles properly, no forced re-hide
     function setMode(mode) {
-  const isIndex = mode === "index";
+      const isIndex = mode === "index";
 
-  // show/hide panels
-  elIndexPanel().hidden = !isIndex;
-  elBlockView().style.display = isIndex ? "none" : "block";
+      // show/hide panels
+      elIndexPanel().hidden = !isIndex;
+      elBlockView().style.display = isIndex ? "none" : "block";
 
-  // About: only exists on index
-  const aboutBtn = document.getElementById("aboutBtn");
-  aboutBtn.style.display = isIndex ? "inline-block" : "none";
-  aboutBtn.textContent = "About";
-  elAboutPanel().hidden = true;
+      // About: only exists on index
+      const aboutBtn = document.getElementById("aboutBtn");
+      aboutBtn.style.display = isIndex ? "inline-block" : "none";
 
-  // nav controls
-  document.getElementById("prev").disabled = isIndex;
-  document.getElementById("next").disabled = isIndex;
-  elJump().disabled = isIndex;
+      // leaving index: force-close About
+      if (!isIndex) elAboutPanel().hidden = true;
 
-  // counter + hash
-  if (isIndex) {
-    elCounter().textContent = `${blocks.length} blocks`;
-    history.replaceState(null, "", "#index");
-  }
-}
+      // label reflects actual state
+      aboutBtn.textContent = elAboutPanel().hidden ? "About" : "Close";
 
+      // nav controls
+      document.getElementById("prev").disabled = isIndex;
+      document.getElementById("next").disabled = isIndex;
+      elJump().disabled = isIndex;
 
+      // counter + hash
+      if (isIndex) {
+        elCounter().textContent = `${blocks.length} blocks`;
+        if (location.hash !== "#about") history.replaceState(null, "", "#index");
+      }
+    }
 
     function renderBlock() {
       const b = blocks[i];
@@ -538,117 +539,116 @@
     }
 
     function openChapterForBlock(block){
-  const chap = (block && block.chapter) ? String(block.chapter).trim() : "";
-  if (!chap) return;
+      const chap = (block && block.chapter) ? String(block.chapter).trim() : "";
+      if (!chap) return;
 
-  const cards = document.querySelectorAll('details.chapterCard');
-  for (const d of cards) {
-    if ((d.dataset.chapter || "").trim() === chap) {
-      d.open = true;
-      setTimeout(() => d.scrollIntoView({ block: "start", behavior: "smooth" }), 0);
-      break;
+      const cards = document.querySelectorAll('details.chapterCard');
+      for (const d of cards) {
+        if ((d.dataset.chapter || "").trim() === chap) {
+          d.open = true;
+          setTimeout(() => d.scrollIntoView({ block: "start", behavior: "smooth" }), 0);
+          break;
+        }
+      }
     }
-  }
-}
+
     // Flat index (your chapter-break version can be wired in here later)
- function buildIndex() {
-  const list = elIndexList();
-  list.innerHTML = "";
+    function buildIndex() {
+      const list = elIndexList();
+      list.innerHTML = "";
 
-  // Group blocks by part -> chapter
-  const parts = new Map();
+      // Group blocks by part -> chapter
+      const parts = new Map();
 
-  for (const b of blocks) {
-    const part = (b.part || " ").trim() || " ";
-    const chapter = (b.chapter || " ").trim() || " ";
+      for (const b of blocks) {
+        const part = (b.part || " ").trim() || " ";
+        const chapter = (b.chapter || " ").trim() || " ";
 
-    if (!parts.has(part)) parts.set(part, new Map());
-    const chapters = parts.get(part);
+        if (!parts.has(part)) parts.set(part, new Map());
+        const chapters = parts.get(part);
 
-    if (!chapters.has(chapter)) chapters.set(chapter, []);
-    chapters.get(chapter).push(b);
-  }
-
-  // Render
-  for (const [partName, chapters] of parts.entries()) {
-    if (partName && partName !== " ") {
-      const partEl = document.createElement("div");
-      partEl.className = "indexPart";
-      partEl.textContent = partName;
-      list.appendChild(partEl);
-    }
-
-    for (const [chapterName, bs] of chapters.entries()) {
-      const details = document.createElement("details");
-      details.className = "chapterCard";
-      details.dataset.chapter = chapterName;
-
-      const summary = document.createElement("summary");
-      summary.className = "chapterSummary";
-
-      const left = document.createElement("div");
-      left.className = "chapterSummaryTitle";
-      left.textContent = chapterName === " " ? "Untitled chapter" : chapterName;
-
-      const right = document.createElement("div");
-      right.className = "chapterSummaryMeta";
-      right.textContent = `${bs.length} blocks`;
-
-      summary.appendChild(left);
-      summary.appendChild(right);
-      details.appendChild(summary);
-
-      const divider = document.createElement("div");
-      divider.className = "chapterDivider";
-      details.appendChild(divider);
-
-      const body = document.createElement("div");
-      body.className = "chapterBody";
-
-      for (const b of bs) {
-        const a = document.createElement("a");
-        a.className = "indexItem";
-        a.href = `#${b.n}`;
-        a.innerHTML = `<strong>Block ${b.n}</strong><small>${escapeHtml(b.title || "")}</small>`;
-
-        a.addEventListener("click", (e) => {
-          e.preventDefault();
-          const idx = blocks.findIndex(x => x.n === b.n);
-          if (idx >= 0) {
-            i = idx;
-            setMode("block");
-            renderBlock();
-          }
-        });
-
-        body.appendChild(a);
+        if (!chapters.has(chapter)) chapters.set(chapter, []);
+        chapters.get(chapter).push(b);
       }
 
-      details.appendChild(body);
-      list.appendChild(details);
+      // Render
+      for (const [partName, chapters] of parts.entries()) {
+        if (partName && partName !== " ") {
+          const partEl = document.createElement("div");
+          partEl.className = "indexPart";
+          partEl.textContent = partName;
+          list.appendChild(partEl);
+        }
+
+        for (const [chapterName, bs] of chapters.entries()) {
+          const details = document.createElement("details");
+          details.className = "chapterCard";
+          details.dataset.chapter = chapterName;
+
+          const summary = document.createElement("summary");
+          summary.className = "chapterSummary";
+
+          const left = document.createElement("div");
+          left.className = "chapterSummaryTitle";
+          left.textContent = chapterName === " " ? "Untitled chapter" : chapterName;
+
+          const right = document.createElement("div");
+          right.className = "chapterSummaryMeta";
+          right.textContent = `${bs.length} blocks`;
+
+          summary.appendChild(left);
+          summary.appendChild(right);
+          details.appendChild(summary);
+
+          const divider = document.createElement("div");
+          divider.className = "chapterDivider";
+          details.appendChild(divider);
+
+          const body = document.createElement("div");
+          body.className = "chapterBody";
+
+          for (const b of bs) {
+            const a = document.createElement("a");
+            a.className = "indexItem";
+            a.href = `#${b.n}`;
+            a.innerHTML = `<strong>Block ${b.n}</strong><small>${escapeHtml(b.title || "")}</small>`;
+
+            a.addEventListener("click", (e) => {
+              e.preventDefault();
+              const idx = blocks.findIndex(x => x.n === b.n);
+              if (idx >= 0) {
+                i = idx;
+                setMode("block");
+                renderBlock();
+              }
+            });
+
+            body.appendChild(a);
+          }
+
+          details.appendChild(body);
+          list.appendChild(details);
+        }
+      }
     }
-  }
-}
 
-function toggleAbout(){
-  // ensure we are in index mode
-  setMode("index");
+    // FIXED: no setMode("index") reset loop; toggles open/close correctly
+    function toggleAbout() {
+      if (elIndexPanel().hidden) setMode("index");
 
-  const panel = elAboutPanel();
-  const btn = document.getElementById("aboutBtn");
+      const panel = elAboutPanel();
+      const btn = document.getElementById("aboutBtn");
 
-  const opening = panel.hidden;
-  panel.hidden = !panel.hidden;
+      const opening = panel.hidden;
+      panel.hidden = !panel.hidden;
 
-  if (opening) {
-    btn.textContent = "Close";
-    history.replaceState(null, "", "#about");
-    setTimeout(() => panel.scrollIntoView({ block: "start", behavior: "smooth" }), 0);
-  } else {
-    btn.textContent = "About";
-    history.replaceState(null, "", "#index");
-  }
-}
+      btn.textContent = panel.hidden ? "About" : "Close";
+      history.replaceState(null, "", panel.hidden ? "#index" : "#about");
+
+      if (opening) {
+        setTimeout(() => panel.scrollIntoView({ block: "start", behavior: "smooth" }), 0);
+      }
+    }
 
     // Theme
     function getTheme(){
@@ -715,15 +715,15 @@ function toggleAbout(){
     };
 
     document.getElementById("indexBtn").onclick = () => {
-  const isIndex = !elIndexPanel().hidden;
-  if (isIndex) {
-    setMode("block");
-    renderBlock();
-  } else {
-    setMode("index");
-    openChapterForBlock(blocks[i]);
-  }
-};
+      const isIndex = !elIndexPanel().hidden;
+      if (isIndex) {
+        setMode("block");
+        renderBlock();
+      } else {
+        setMode("index");
+        openChapterForBlock(blocks[i]);
+      }
+    };
 
     window.addEventListener("keydown", (e) => {
       if (!elIndexPanel().hidden) return;
@@ -731,43 +731,44 @@ function toggleAbout(){
       if (e.key === "ArrowRight") document.getElementById("next").click();
     });
 
-function applyHash() {
-  const h = location.hash.replace("#", "").trim();
+    // FIXED: guard against blocks not loaded yet
+    function applyHash() {
+      if (!blocks || blocks.length === 0) return;
 
-  // INDEX (default)
-  if (h === "" || h === "index") {
-    setMode("index");
-    openChapterForBlock(blocks[i]);
-    return;
-  }
+      const h = location.hash.replace("#", "").trim();
 
-  // ABOUT
-  if (h === "about") {
-    setMode("index");
-    elAboutPanel().hidden = false;
-    document.getElementById("aboutBtn").textContent = "Close";
-    setTimeout(() => elAboutPanel().scrollIntoView({ block: "start", behavior: "smooth" }), 0);
-    return;
-  }
+      // INDEX (default)
+      if (h === "" || h === "index") {
+        setMode("index");
+        openChapterForBlock(blocks[i]);
+        return;
+      }
 
-  // BLOCK NUMBER
-  const n = parseInt(h, 10);
-  if (!isNaN(n)) {
-    const idx = blocks.findIndex(x => x.n === n);
-    if (idx >= 0) {
-      i = idx;
+      // ABOUT
+      if (h === "about") {
+        setMode("index");
+        elAboutPanel().hidden = false;
+        document.getElementById("aboutBtn").textContent = "Close";
+        setTimeout(() => elAboutPanel().scrollIntoView({ block: "start", behavior: "smooth" }), 0);
+        return;
+      }
+
+      // BLOCK NUMBER
+      const n = parseInt(h, 10);
+      if (!isNaN(n)) {
+        const idx = blocks.findIndex(x => x.n === n);
+        if (idx >= 0) {
+          i = idx;
+          setMode("block");
+          renderBlock();
+          return;
+        }
+      }
+
+      // FALLBACK
       setMode("block");
       renderBlock();
-      return;
     }
-  }
-
-  // FALLBACK
-  setMode("block");
-  renderBlock();
-}
-
-window.addEventListener("hashchange", applyHash);
 
     // Init
     (async () => {
@@ -776,12 +777,11 @@ window.addEventListener("hashchange", applyHash);
       buildJump();
       buildIndex();
 
-document.getElementById("aboutBtn").addEventListener("click", toggleAbout);
+      document.getElementById("aboutBtn").addEventListener("click", toggleAbout);
+      window.addEventListener("hashchange", applyHash);
 
-
-touchPublicClock();
-applyHash();
-
+      touchPublicClock();
+      applyHash();
     })().catch(err => {
       elBlockView().style.display = "block";
       elMeta().textContent = "Error";
