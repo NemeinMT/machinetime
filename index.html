@@ -5,11 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Machine Time</title>
   <style>
-    :root {
+    :root{
       --bg: #050505;
       --fg: #eaeaea;
       --muted: #9a9a9a;
       --line: #1c1c1c;
+    }
+
+    :root[data-theme="light"]{
+      --bg: #f7f7f5;
+      --fg: #101010;
+      --muted: #606060;
+      --line: #dedede;
     }
 
     body {
@@ -159,6 +166,7 @@
 
     <div class="nav">
       <button id="indexBtn">Index</button>
+      <button id="themeBtn" title="Toggle theme">Light</button>
       <select id="jump"></select>
       <button id="prev">← Prev</button>
       <button id="next">Next →</button>
@@ -177,6 +185,23 @@
     const elIndexPanel = () => document.getElementById("indexPanel");
     const elIndexList = () => document.getElementById("indexList");
     const elJump = () => document.getElementById("jump");
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute("data-theme", theme);
+      localStorage.setItem("mt_theme", theme);
+      const btn = document.getElementById("themeBtn");
+      btn.textContent = theme === "dark" ? "Light" : "Dark";
+    }
+
+    function initTheme() {
+      const saved = localStorage.getItem("mt_theme");
+      if (saved === "dark" || saved === "light") {
+        applyTheme(saved);
+        return;
+      }
+      const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      applyTheme(prefersDark ? "dark" : "light");
+    }
 
     async function loadBlocks() {
       const res = await fetch("./blocks.json", { cache: "no-store" });
@@ -300,6 +325,11 @@
       }
     };
 
+    document.getElementById("themeBtn").onclick = () => {
+      const current = document.documentElement.getAttribute("data-theme") || "dark";
+      applyTheme(current === "dark" ? "light" : "dark");
+    };
+
     window.addEventListener("keydown", (e) => {
       if (!elIndexPanel().hidden) return;
       if (e.key === "ArrowLeft") document.getElementById("prev").click();
@@ -309,6 +339,7 @@
     window.addEventListener("hashchange", () => applyHash());
 
     (async () => {
+      initTheme();
       await loadBlocks();
       buildJump();
       buildIndex();
