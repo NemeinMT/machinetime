@@ -619,6 +619,20 @@
   }
 }
 
+function toggleAbout(){
+  // About only makes sense while in index mode
+  setMode("index");
+
+  const panel = elAboutPanel();
+  panel.hidden = !panel.hidden;
+
+  if (!panel.hidden) {
+    history.replaceState(null, "", "#about");
+    setTimeout(() => panel.scrollIntoView({ block: "start", behavior: "smooth" }), 0);
+  } else {
+    history.replaceState(null, "", "#index");
+  }
+}
 
 
     // Theme
