@@ -607,6 +607,34 @@
       if (e.key === "ArrowRight") document.getElementById("next").click();
     });
 
+function applyHash() {
+  const h = location.hash.replace("#", "").trim();
+
+  // Index route
+  if (h === "index" || h === "") {
+    setMode("index");
+    openChapterForBlock(blocks[i]);
+    return;
+  }
+
+  // Block route: #18 etc
+  const n = parseInt(h, 10);
+  if (!isNaN(n)) {
+    const idx = blocks.findIndex(x => x.n === n);
+    if (idx >= 0) {
+      i = idx;
+      setMode("block");
+      renderBlock();
+      return;
+    }
+  }
+
+  // Fallback
+  setMode("block");
+  renderBlock();
+}
+
+    
     window.addEventListener("hashchange", () => applyHash());
 
     // Init
