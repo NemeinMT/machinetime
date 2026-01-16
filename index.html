@@ -479,6 +479,8 @@
       const isIndex = mode === "index";
       elIndexPanel().hidden = !isIndex;
       elBlockView().style.display = isIndex ? "none" : "block";
+      elAboutPanel().hidden = true; // always hide About when switching modes
+
 
       document.getElementById("prev").disabled = isIndex;
       document.getElementById("next").disabled = isIndex;
