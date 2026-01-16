@@ -75,42 +75,62 @@
   </div>
 
   <script>
-    // Replace these with real blocks later
-    const blocks = [
-      "Block 1\n\nMachine Time is the epoch where the world runs on non-human reasoning.",
-      "Block 2\n\nBitcoin anchors energy and irreversible time.",
-      "Block 3\n\nBittensor anchors intelligence and continuous inference."
-    ];
+  let blocks = [];
+  let i = 0;
 
-    let i = 0;
-
-    function render() {
-      document.getElementById("block").textContent = blocks[i];
-      document.getElementById("counter").textContent = `Block ${i+1} / ${blocks.length}`;
-      history.replaceState(null, "", `#${i+1}`);
+  async function loadBlocks() {
+    const res = await fetch("./blocks.json", { cache: "no-store" });
+    if (!res.ok) throw new Error("Failed to load blocks.json");
+    blocks = await res.json();
+    if (!Array.isArray(blocks) || blocks.length === 0) {
+      throw new Error("blocks.json is empty or not an array");
     }
+  }
 
-    document.getElementById("prev").onclick = () => {
-      i = (i - 1 + blocks.length) % blocks.length;
-      render();
-    };
+  function render() {
+    const b = blocks[i];
+    // Display format: Block N, then title line, then body
+    document.getElementById("block").textContent =
+      `Block ${b.n}\n\n${b.title}\n\n${b.body}`;
 
-    document.getElementById("next").onclick = () => {
-      i = (i + 1) % blocks.length;
-      render();
-    };
+    document.getElementById("counter").textContent =
+      `Block ${i + 1} / ${blocks.length}`;
 
-    // Load from URL hash if present
-    const h = parseInt(location.hash.replace("#",""), 10);
-    if (!isNaN(h) && h >= 1 && h <= blocks.length) i = h - 1;
+    history.replaceState(null, "", `#${b.n}`);
+  }
 
-    // Keyboard navigation
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowLeft") document.getElementById("prev").click();
-      if (e.key === "ArrowRight") document.getElementById("next").click();
-    });
+  function jumpFromHash() {
+    const h = parseInt(location.hash.replace("#", ""), 10);
+    if (!isNaN(h)) {
+      const idx = blocks.findIndex(x => x.n === h);
+      if (idx >= 0) i = idx;
+    }
+  }
 
+  document.getElementById("prev").onclick = () => {
+    i = (i - 1 + blocks.length) % blocks.length;
     render();
-  </script>
+  };
+
+  document.getElementById("next").onclick = () => {
+    i = (i + 1) % blocks.length;
+    render();
+  };
+
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowLeft") document.getElementById("prev").click();
+    if (e.key === "ArrowRight") document.getElementById("next").click();
+  });
+
+  (async () => {
+    await loadBlocks();
+    jumpFromHash();
+    render();
+  })().catch(err => {
+    document.getElementById("block").textContent =
+      "Error loading blocks.\n\n" + err.message;
+    document.getElementById("counter").textContent = "";
+  });
+</script>
 </body>
 </html>
