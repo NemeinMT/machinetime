@@ -1,12 +1,116 @@
 <!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Machine Time</title>
-  </head>
-  <body>
-    <h1>Machine Time</h1>
-    <p>machinetime.xyz is live.</p>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Machine Time</title>
+  <style>
+    :root {
+      --bg: #050505;
+      --fg: #eaeaea;
+      --muted: #9a9a9a;
+      --line: #1c1c1c;
+    }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
+    .wrap {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 48px 20px 80px;
+    }
+    .title {
+      letter-spacing: 0.08em;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .block {
+      margin-top: 18px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+      font-size: 20px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+    .nav {
+      display: flex;
+      gap: 10px;
+      margin-top: 22px;
+    }
+    button {
+      background: transparent;
+      color: var(--fg);
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    button:hover { border-color: #333; }
+    .counter {
+      margin-left: auto;
+      color: var(--muted);
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="title">MACHINE TIME</div>
+
+    <div id="block" class="block"></div>
+
+    <div class="nav">
+      <button id="prev">← Prev</button>
+      <button id="next">Next →</button>
+      <div id="counter" class="counter"></div>
+    </div>
+  </div>
+
+  <script>
+    // Replace these with real blocks later
+    const blocks = [
+      "Block 1\n\nMachine Time is the epoch where the world runs on non-human reasoning.",
+      "Block 2\n\nBitcoin anchors energy and irreversible time.",
+      "Block 3\n\nBittensor anchors intelligence and continuous inference."
+    ];
+
+    let i = 0;
+
+    function render() {
+      document.getElementById("block").textContent = blocks[i];
+      document.getElementById("counter").textContent = `Block ${i+1} / ${blocks.length}`;
+      history.replaceState(null, "", `#${i+1}`);
+    }
+
+    document.getElementById("prev").onclick = () => {
+      i = (i - 1 + blocks.length) % blocks.length;
+      render();
+    };
+
+    document.getElementById("next").onclick = () => {
+      i = (i + 1) % blocks.length;
+      render();
+    };
+
+    // Load from URL hash if present
+    const h = parseInt(location.hash.replace("#",""), 10);
+    if (!isNaN(h) && h >= 1 && h <= blocks.length) i = h - 1;
+
+    // Keyboard navigation
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") document.getElementById("prev").click();
+      if (e.key === "ArrowRight") document.getElementById("next").click();
+    });
+
+    render();
+  </script>
+</body>
 </html>
