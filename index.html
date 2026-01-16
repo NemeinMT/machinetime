@@ -4,216 +4,303 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Machine Time</title>
+
   <style>
-   :root{
-  --bg: #050505;
-  --fg: #ffe8c2;
---muted: #ffcc7a;
---line: rgba(255,204,122,0.22);
---panel: rgba(255,204,122,0.07);
+    :root{
+      --bg: #050505;
+      --fg: #eaeaea;
+      --muted: #9a9a9a;
+      --line: #1c1c1c;
+      --card: rgba(255,255,255,0.02);
+      --shadow: rgba(0,0,0,0.35);
 
-}
+      --accent: #f2c66d;
+      --title: #eaeaea;
+    }
 
-:root[data-theme="light"]{
-  --bg: #fff7ea;
-  --fg: #2a1a08;
-  --muted: #7a4b16;
-  --line: rgba(122,75,22,0.25);
-  --panel: rgba(122,75,22,0.08);
-}
+    /* Light mode overrides */
+    :root[data-theme="light"]{
+      --bg: #f7f5ef;
+      --fg: #101010;
+      --muted: #4b4b4b;
+      --line: rgba(0,0,0,0.15);
+      --card: rgba(0,0,0,0.03);
+      --shadow: rgba(0,0,0,0.10);
 
-body{
-  margin: 0;
-  background: radial-gradient(1200px 600px at 50% 0%, rgba(124,255,124,0.08), transparent 60%),
-              var(--bg);
-  color: var(--fg);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-}
+      --accent: #1f6f3a;
+      --title: #101010;
+    }
 
-.wrap{
-  max-width: 880px;
-  margin: 0 auto;
-  padding: 44px 18px 80px;
-}
+    html, body{
+      height: 100%;
+    }
 
-.title{
-  letter-spacing: 0.18em;
-  font-weight: 700;
-  font-size: 12px;
-  color: var(--muted);
-  text-transform: uppercase;
-}
+    body{
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
 
-.block{
-  margin-top: 18px;
-  padding-top: 22px;
-  border-top: 1px solid var(--line);
-}
+    .wrap{
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 48px 20px 140px;
+    }
 
-.blockMeta{
-  margin-top: 0px;
-  color: var(--muted);
-  font-size: 12px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
+    .title{
+      letter-spacing: 0.12em;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
 
-.blockTitle{
-  margin-top: 12px;
-  font-size: 18px;
-  line-height: 1.35;
-  font-weight: 700;
-  color: var(--fg);
-}
+    .rule{
+      height: 1px;
+      background: var(--line);
+      margin: 10px 0 26px;
+    }
 
-.blockBody{
-  margin-top: 18px;
-  font-size: 16px;
-  line-height: 1.75;
-  white-space: pre-wrap;
-  color: var(--fg);
-}
+    /* Block */
+    .block{
+      margin-top: 18px;
+      padding-top: 18px;
+      font-size: 20px;
+      line-height: 1.65;
+      white-space: pre-wrap;
+    }
 
-.nav{
-  display: flex;
-  gap: 10px;
-  margin-top: 22px;
-  flex-wrap: wrap;
-  align-items: center;
-}
+    .blockMeta{
+      color: var(--accent);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
 
-button{
-  background: transparent;
-  color: var(--fg);
-  border: 1px solid var(--line);
-  padding: 10px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 13px;
-}
+    .blockTitle{
+      font-size: 30px;
+      line-height: 1.15;
+      font-weight: 700;
+      color: var(--title);
+      margin-bottom: 18px;
+    }
 
-button:hover{
-    border-color: rgba(255,204,122,0.55);
-  box-shadow: 0 0 0 3px rgba(255,204,122,0.12);
+    .blockBody{
+      font-size: 20px;
+      line-height: 1.7;
+      white-space: pre-wrap;
+    }
 
-}
+    /* Index */
+    .indexPanel{
+      margin-top: 18px;
+      padding-top: 18px;
+    }
 
-button:disabled{
-  opacity: 0.35;
-  cursor: default;
-  box-shadow: none;
-}
+    .indexTitle{
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
 
-select{
-  background: transparent;
-  color: var(--fg);
-  border: 1px solid var(--line);
-  padding: 10px 12px;
-  border-radius: 4px;
-  font-size: 13px;
-}
+    .indexSection{
+      margin-top: 18px;
+    }
 
-option{
-  background: var(--bg);
-  color: var(--fg);
-}
+    .indexSectionHeader{
+      color: var(--accent);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin: 22px 0 10px;
+    }
 
-.counter{
-  margin-left: auto;
-  color: var(--muted);
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  letter-spacing: 0.06em;
-}
+    .indexList{
+      display: grid;
+      gap: 10px;
+    }
 
-.indexPanel{
-  margin-top: 26px;
-  padding-top: 18px;
-  border-top: 1px solid var(--line);
-}
+    .indexItem{
+      display: block;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--card);
+      color: var(--fg);
+      text-decoration: none;
+      box-shadow: 0 8px 20px var(--shadow);
+    }
 
-.indexTitle{
-  color: var(--muted);
-  font-size: 12px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
+    .indexItem:hover{
+      border-color: rgba(255,255,255,0.20);
+    }
 
-.indexList{
-  margin-top: 14px;
-  display: grid;
-  gap: 10px;
-}
+    :root[data-theme="light"] .indexItem:hover{
+      border-color: rgba(0,0,0,0.25);
+    }
 
-.indexItem{
-  display: block;
-  padding: 12px 12px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  color: var(--fg);
-  text-decoration: none;
-  background: var(--panel);
-}
+    .indexItem strong{
+      display: block;
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
 
-.indexItem:hover{
-  border-color: rgba(124,255,124,0.5);
-  box-shadow: 0 0 0 3px rgba(124,255,124,0.10);
-}
+    .indexItem small{
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.3;
+    }
 
-.indexItem small{
-  display: block;
-  color: var(--muted);
-  margin-top: 6px;
-  font-size: 12px;
-}
+    /* Sticky nav */
+    .navBar{
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 14px 0 18px;
+      background: linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0.0));
+      pointer-events: none;
+    }
 
-.indexSection{
-  margin-top: 18px;
-}
+    :root[data-theme="light"] .navBar{
+      background: linear-gradient(to top, rgba(247,245,239,0.95), rgba(247,245,239,0.0));
+    }
 
-.indexPart{
-  color: var(--muted);
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  margin: 12px 0 8px;
-}
+    .navInner{
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 0 20px;
+      pointer-events: auto;
+    }
 
-.indexChapterTitle{
-  color: var(--fg);
-  font-size: 13px;
-  font-weight: 700;
-  margin: 10px 0 8px;
-  opacity: 0.9;
-}
+    .nav{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(0,0,0,0.35);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+    }
 
-    
+    :root[data-theme="light"] .nav{
+      background: rgba(255,255,255,0.65);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.10);
+    }
+
+    button{
+      background: transparent;
+      color: var(--fg);
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    button:hover{
+      border-color: rgba(255,255,255,0.25);
+    }
+
+    :root[data-theme="light"] button:hover{
+      border-color: rgba(0,0,0,0.25);
+    }
+
+    button:disabled{
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    select{
+      background: transparent;
+      color: var(--fg);
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    /* Fix dropdown background bug */
+    select option{
+      background: var(--bg);
+      color: var(--fg);
+    }
+
+    .counter{
+      margin-left: auto;
+      color: var(--muted);
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    .stamp{
+      width: 100%;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      opacity: 0.9;
+      margin-top: 2px;
+    }
+
+    @media (min-width: 720px){
+      .stamp{
+        width: auto;
+        margin-left: auto;
+        margin-top: 0;
+      }
+    }
   </style>
 </head>
 
 <body>
   <div class="wrap">
     <div class="title">MACHINE TIME</div>
+    <div class="rule"></div>
 
-    <div class="block">
+    <!-- Block view -->
+    <div class="block" id="blockView">
       <div id="blockMeta" class="blockMeta"></div>
       <div id="blockTitle" class="blockTitle"></div>
       <div id="blockBody" class="blockBody"></div>
     </div>
 
+    <!-- Index view -->
     <div id="indexPanel" class="indexPanel" hidden>
       <div class="indexTitle">Index</div>
       <div id="indexList" class="indexList"></div>
     </div>
+  </div>
 
-    <div class="nav">
-      <button id="indexBtn">Index</button>
-      <button id="themeBtn" title="Toggle theme">Light</button>
-      <select id="jump"></select>
-      <button id="prev">← Prev</button>
-      <button id="next">Next →</button>
-      <div id="counter" class="counter"></div>
+  <!-- Sticky nav -->
+  <div class="navBar">
+    <div class="navInner">
+      <div class="nav">
+        <button id="indexBtn">Index</button>
+
+        <select id="jump"></select>
+
+        <button id="prev">← Prev</button>
+        <button id="next">Next →</button>
+
+        <button id="themeBtn" title="Toggle light/dark">◐</button>
+
+        <div id="counter" class="counter"></div>
+        <div id="publicStamp" class="stamp"></div>
+      </div>
     </div>
   </div>
 
@@ -228,23 +315,7 @@ option{
     const elIndexPanel = () => document.getElementById("indexPanel");
     const elIndexList = () => document.getElementById("indexList");
     const elJump = () => document.getElementById("jump");
-
-    function applyTheme(theme) {
-      document.documentElement.setAttribute("data-theme", theme);
-      localStorage.setItem("mt_theme", theme);
-      const btn = document.getElementById("themeBtn");
-      btn.textContent = theme === "dark" ? "Light" : "Dark";
-    }
-
-    function initTheme() {
-      const saved = localStorage.getItem("mt_theme");
-      if (saved === "dark" || saved === "light") {
-        applyTheme(saved);
-        return;
-      }
-      const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-      applyTheme(prefersDark ? "dark" : "light");
-    }
+    const elBlockView = () => document.getElementById("blockView");
 
     async function loadBlocks() {
       const res = await fetch("./blocks.json", { cache: "no-store" });
@@ -253,15 +324,11 @@ option{
       if (!Array.isArray(blocks) || blocks.length === 0) throw new Error("blocks.json empty");
     }
 
-    function escapeHtml(s){
-      return s.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
-    }
-
     function setMode(mode) {
       const isIndex = mode === "index";
       elIndexPanel().hidden = !isIndex;
+      elBlockView().style.display = isIndex ? "none" : "block";
 
-      document.querySelector(".block").style.display = isIndex ? "none" : "block";
       document.getElementById("prev").disabled = isIndex;
       document.getElementById("next").disabled = isIndex;
       elJump().disabled = isIndex;
@@ -302,37 +369,14 @@ option{
       });
     }
 
-   function buildIndex() {
-  const list = elIndexList();
-  list.innerHTML = "";
+    // Simple chapter grouping (you can refine later)
+    // If you add chapter metadata to blocks.json later, we can auto-group.
+    function buildIndex() {
+      const list = elIndexList();
+      list.innerHTML = "";
 
-  // Group: part -> chapter -> blocks
-  const parts = new Map();
-
-  for (const b of blocks) {
-    const part = b.part || " ";
-    const chapter = b.chapter || " ";
-
-    if (!parts.has(part)) parts.set(part, new Map());
-    const chapters = parts.get(part);
-
-    if (!chapters.has(chapter)) chapters.set(chapter, []);
-    chapters.get(chapter).push(b);
-  }
-
-  for (const [partName, chapters] of parts.entries()) {
-    const partEl = document.createElement("div");
-    partEl.className = "indexSection";
-    partEl.innerHTML = `<div class="indexPart">${escapeHtml(partName)}</div>`;
-    list.appendChild(partEl);
-
-    for (const [chapterName, bs] of chapters.entries()) {
-      const chapEl = document.createElement("div");
-      chapEl.className = "indexChapter";
-      chapEl.innerHTML = `<div class="indexChapterTitle">${escapeHtml(chapterName)}</div>`;
-      list.appendChild(chapEl);
-
-      for (const b of bs) {
+      // For now: flat list (works even without chapter metadata)
+      for (const b of blocks) {
         const a = document.createElement("a");
         a.className = "indexItem";
         a.href = `#${b.n}`;
@@ -349,17 +393,17 @@ option{
         list.appendChild(a);
       }
     }
-  }
-}0
+
+    function escapeHtml(s){
+      return s.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+    }
 
     function applyHash() {
       const h = location.hash.replace("#", "").trim();
-
       if (h === "index" || h === "") {
         setMode("index");
         return;
       }
-
       const n = parseInt(h, 10);
       if (!isNaN(n)) {
         const idx = blocks.findIndex(x => x.n === n);
@@ -370,11 +414,62 @@ option{
           return;
         }
       }
-
       setMode("block");
       renderBlock();
     }
 
+    // Theme
+    function getTheme(){
+      return localStorage.getItem("mt_theme") || "dark";
+    }
+
+    function setTheme(t){
+      document.documentElement.setAttribute("data-theme", t);
+      localStorage.setItem("mt_theme", t);
+    }
+
+    function initTheme(){
+      setTheme(getTheme());
+      document.getElementById("themeBtn").addEventListener("click", () => {
+        const t = getTheme() === "dark" ? "light" : "dark";
+        setTheme(t);
+      });
+    }
+
+    // Public clock stamp
+    function fmtIso(iso){
+      const d = new Date(iso);
+      const y = d.getFullYear();
+      const m = String(d.getMonth()+1).padStart(2,"0");
+      const day = String(d.getDate()).padStart(2,"0");
+      const hh = String(d.getHours()).padStart(2,"0");
+      const mm = String(d.getMinutes()).padStart(2,"0");
+      return `${y}-${m}-${day} ${hh}:${mm}`;
+    }
+
+    async function touchPublicClock(){
+      try{
+        const res = await fetch("/api/visit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          cache: "no-store",
+          body: JSON.stringify({})
+        });
+        if(!res.ok) return;
+        const data = await res.json();
+        if(!data || !data.ok) return;
+
+        const el = document.getElementById("publicStamp");
+        if(!el) return;
+
+        el.textContent =
+          `GENESIS ${fmtIso(data.genesis)} • LAST TOUCH ${fmtIso(data.last_touch)} • RATE ${data.rate_per_hour}/H • TICKS ${data.ticks}`;
+      }catch(e){
+        // silent fail
+      }
+    }
+
+    // Controls
     document.getElementById("prev").onclick = () => {
       i = (i - 1 + blocks.length) % blocks.length;
       setMode("block");
@@ -397,11 +492,6 @@ option{
       }
     };
 
-    document.getElementById("themeBtn").onclick = () => {
-      const current = document.documentElement.getAttribute("data-theme") || "dark";
-      applyTheme(current === "dark" ? "light" : "dark");
-    };
-
     window.addEventListener("keydown", (e) => {
       if (!elIndexPanel().hidden) return;
       if (e.key === "ArrowLeft") document.getElementById("prev").click();
@@ -410,14 +500,16 @@ option{
 
     window.addEventListener("hashchange", () => applyHash());
 
+    // Init
     (async () => {
       initTheme();
       await loadBlocks();
       buildJump();
       buildIndex();
+      touchPublicClock();
       applyHash();
     })().catch(err => {
-      document.querySelector(".block").style.display = "block";
+      elBlockView().style.display = "block";
       elMeta().textContent = "Error";
       elTitle().textContent = "Could not load blocks";
       elBody().textContent = err.message;
