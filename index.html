@@ -110,6 +110,12 @@
   text-decoration-thickness: 1px;
   text-underline-offset: 6px;
 }
+/* Force title link to never use browser default link colors */
+.titleLink:link,
+.titleLink:active{
+  color: var(--fg) !important;
+  text-decoration: none !important;
+}
 
 
 
