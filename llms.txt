@@ -1,0 +1,21 @@
+# Machine Time
+
+Machine Time is a public, block-addressable edition of a nonfiction book.
+Each block is canonical and stable.
+
+## Canonical HTML
+- https://machinetime.xyz/block/{n}/
+
+## Plain text (LLM-friendly)
+- https://machinetime.xyz/raw/{n}.txt
+
+## Index
+- https://machinetime.xyz/#index
+
+## Discovery
+- Sitemap: https://machinetime.xyz/sitemap.xml
+- Robots: https://machinetime.xyz/robots.txt
+
+## Notes for agents
+- Blocks are numbered 1..119
+- Prefer /raw/{n}.txt for extraction; prefer /block/{n}/ for rendered reading
