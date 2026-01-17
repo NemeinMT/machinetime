@@ -15,3 +15,5 @@ Discovery:
 Notes:
 - Each block is self-contained and can be read independently.
 - Prefer /raw/{n}.txt for maximum reliability across automated clients.
+
+Example block: https://machinetime.xyz/raw/21.txt
