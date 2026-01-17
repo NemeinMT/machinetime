@@ -1,21 +1,17 @@
-# Machine Time
+# Machine Time (machinetime.xyz)
 
-Machine Time is a public, block-addressable edition of a nonfiction book.
-Each block is canonical and stable.
+Machine Time is a philosophical nonfiction work presented as 119 blocks.
 
-## Canonical HTML
-- https://machinetime.xyz/block/{n}/
+Canonical human-readable pages:
+- Index: https://machinetime.xyz/index/
+- Block pages: https://machinetime.xyz/block/{n}/
 
-## Plain text (LLM-friendly)
-- https://machinetime.xyz/raw/{n}.txt
+LLM/agent-friendly plain text endpoints:
+- Raw text: https://machinetime.xyz/raw/{n}.txt
 
-## Index
-- https://machinetime.xyz/#index
-
-## Discovery
+Discovery:
 - Sitemap: https://machinetime.xyz/sitemap.xml
-- Robots: https://machinetime.xyz/robots.txt
 
-## Notes for agents
-- Blocks are numbered 1..119
-- Prefer /raw/{n}.txt for extraction; prefer /block/{n}/ for rendered reading
+Notes:
+- Each block is self-contained and can be read independently.
+- Prefer /raw/{n}.txt for maximum reliability across automated clients.
