@@ -2,6 +2,6 @@
   "name": "machinetime",
   "private": true,
   "scripts": {
-    "build": "node build-block-pages.js"
+    "build": "node build-site.js"
   }
 }
