@@ -789,15 +789,17 @@ function shareCurrent(){
     };
 
     document.getElementById("indexBtn").onclick = () => {
-      const isIndex = !elIndexPanel().hidden;
-      if (isIndex) {
-        setMode("block");
-        renderBlock();
-    } else {
-  setMode("index");
-}
+  const isIndex = !elIndexPanel().hidden;
 
-    };
+  if (isIndex) {
+    setMode("block");
+    renderBlock();
+  } else {
+    setMode("index");
+    // do NOT auto-open any chapter
+  }
+};
+
 
     window.addEventListener("keydown", (e) => {
       if (!elIndexPanel().hidden) return;
