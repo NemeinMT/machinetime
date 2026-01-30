@@ -778,12 +778,27 @@ function shareCurrent(){
     // Controls
    document.getElementById("prev").onclick = () => {
   const onIndex = !elIndexPanel().hidden;
-  if (onIndex) i = blocks.length - 1;
-  else i = (i - 1 + blocks.length) % blocks.length;
 
+  // If we're on the index, go to last block
+  if (onIndex) {
+    i = blocks.length - 1;
+    setMode("block");
+    renderBlock();
+    return;
+  }
+
+  // If we're at Block 1, go back to index
+  if (i === 0) {
+    setMode("index");
+    return;
+  }
+
+  // Otherwise go to previous block
+  i = i - 1;
   setMode("block");
   renderBlock();
 };
+
 
 document.getElementById("next").onclick = () => {
   const onIndex = !elIndexPanel().hidden;
