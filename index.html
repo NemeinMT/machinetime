@@ -539,9 +539,9 @@
       aboutBtn.textContent = elAboutPanel().hidden ? "About" : "Close";
 
       // nav controls
-      document.getElementById("prev").disabled = isIndex;
-      document.getElementById("next").disabled = isIndex;
-      elJump().disabled = isIndex;
+      elJump().disabled = false;              // always allow dropdown
+      document.getElementById("next").disabled = false;   // next works from index
+      document.getElementById("prev").disabled = false;   // prev wraps from index
 
       // counter + hash
       if (isIndex) {
@@ -776,17 +776,23 @@ function shareCurrent(){
 }
 
     // Controls
-    document.getElementById("prev").onclick = () => {
-      i = (i - 1 + blocks.length) % blocks.length;
-      setMode("block");
-      renderBlock();
-    };
+   document.getElementById("prev").onclick = () => {
+  const onIndex = !elIndexPanel().hidden;
+  if (onIndex) i = blocks.length - 1;
+  else i = (i - 1 + blocks.length) % blocks.length;
 
-    document.getElementById("next").onclick = () => {
-      i = (i + 1) % blocks.length;
-      setMode("block");
-      renderBlock();
-    };
+  setMode("block");
+  renderBlock();
+};
+
+document.getElementById("next").onclick = () => {
+  const onIndex = !elIndexPanel().hidden;
+  if (onIndex) i = 0;
+  else i = (i + 1) % blocks.length;
+
+  setMode("block");
+  renderBlock();
+};
 
     document.getElementById("indexBtn").onclick = () => {
   const isIndex = !elIndexPanel().hidden;
