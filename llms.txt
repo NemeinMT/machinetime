@@ -1,19 +1,26 @@
-# Machine Time (machinetime.xyz)
+# Machine Time
 
-Machine Time is a philosophical nonfiction work presented as 119 blocks.
+> A philosophical nonfiction work in 119 self-contained blocks by Stevan Milentijevic, on temporality, acceleration, and the substrate conditions of post-institutional civilization. Each block can be read independently.
 
-Canonical human-readable pages:
-- Index: https://machinetime.xyz/index/
-- Block pages: https://machinetime.xyz/block/{n}/
+## Full text
 
-LLM/agent-friendly plain text endpoints:
-- Raw text: https://machinetime.xyz/raw/{n}.txt
+- [Complete manuscript](https://machinetime.xyz/llms-full.txt): All 119 blocks concatenated as plain text
 
-Discovery:
-- Sitemap: https://machinetime.xyz/sitemap.xml
+## Individual blocks
 
-Notes:
-- Each block is self-contained and can be read independently.
-- Prefer /raw/{n}.txt for maximum reliability across automated clients.
+- [Raw block endpoints](https://machinetime.xyz/raw/1.txt): Format is /raw/{n}.txt where n is 1 through 119. Preferred for automated clients.
 
-Example block: https://machinetime.xyz/raw/21.txt
+## Human-readable site
+
+- [Index](https://machinetime.xyz/index/): Site navigation
+- [Block pages](https://machinetime.xyz/block/1/): Format is /block/{n}/ for browser viewing
+
+## Author
+
+- [Substack: The Machine Time Ledger](https://machinetime.substack.com/): Essays extending the framework
+
+## Notes
+
+- Each block is self-contained and can be read independently
+- /raw/{n}.txt endpoints provide maximum reliability for automated access
+- The complete text at /llms-full.txt is the canonical machine-readable artifact
